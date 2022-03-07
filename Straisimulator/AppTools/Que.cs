@@ -4,10 +4,8 @@ public class Que
 {
     private TimeSpan _queTime;
 
-    public Que(TimeSpan queTime)
+    public Que(TimeOnly queStart, TimeOnly queEnd)
     {
-        this._queTime = queTime;
+        _queTime = queEnd - queStart;
     }
-    
-    
 }

@@ -13,27 +13,27 @@ public class QueForOrder
         this.id = id;
     }
 
-    public void addBremEvQue(Que que)
+    public void AddBremEvQue(Que que)
     {
         _bremEvQue.Add(que);
     }
 
-    public void addEvPresQue(Que que)
+    public void AddEvPresQue(Que que)
     {
         _evPresQue.Add(que);
     }
 
-    public ArrayList getBremEvQue()
+    public ArrayList GetBremEvQue()
     {
         return _bremEvQue;
     }
 
-    public ArrayList getEvPresQue()
+    public ArrayList GetEvPresQue()
     {
         return _evPresQue;
     }
 
-    public int getID()
+    public int GetId()
     {
         return id;
     }

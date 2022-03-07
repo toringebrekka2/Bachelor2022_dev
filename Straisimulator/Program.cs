@@ -20,16 +20,7 @@ builder.Services.AddRazorPages();
 
 
 /* ---- App specific ---- */
-int qFOIndex = 1;
-ArrayList qFOList = new ArrayList();
-
-
-QueForOrder quesOfOrder1 = new QueForOrder(qFOIndex);
-
-qFOIndex++;
-QueForOrder quesOfOrder2 = new QueForOrder(qFOIndex);
-
-
+AllOrderQues allOrderQues = new AllOrderQues();
 
 
 
