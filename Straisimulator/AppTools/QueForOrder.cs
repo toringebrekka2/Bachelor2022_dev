@@ -7,6 +7,7 @@ public class QueForOrder
     private int id;
     private ArrayList _bremEvQue = new ArrayList();
     private ArrayList _evPresQue = new ArrayList();
+    private ArrayList _generalQue = new ArrayList();
 
     public QueForOrder(int id)
     {
@@ -31,6 +32,16 @@ public class QueForOrder
     public ArrayList GetEvPresQue()
     {
         return _evPresQue;
+    }
+
+    public void AddGeneralQue(Que que)
+    {
+        _generalQue.Add(que);
+    }
+
+    public ArrayList GetGeneralQue()
+    {
+        return _generalQue;
     }
 
     public int GetId()

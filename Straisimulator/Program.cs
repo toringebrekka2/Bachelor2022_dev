@@ -2,6 +2,7 @@ using System.Collections;using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Straisimulator.AppTools;
 using Straisimulator.Data;
+using Straisimulator.DBTools;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,10 @@ builder.Services.AddRazorPages();
 
 /* ---- App specific ---- */
 AllOrderQues allOrderQues = new AllOrderQues();
+
+// disse to linjene må gjøres sammen for hver ordre-kø-fetch (burde fikses):
+QueForOrderFetcher fetchOrder1 = new QueForOrderFetcher(1, 1);
+allOrderQues.AddQueForOrder(fetchOrder1.GetQueForOrder());
 
 
 
