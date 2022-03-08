@@ -1,6 +1,6 @@
 namespace Straisimulator.Data.Entities;
 
-public class PresseEnt
+public class ProductionEventTypes
 {
     
 }

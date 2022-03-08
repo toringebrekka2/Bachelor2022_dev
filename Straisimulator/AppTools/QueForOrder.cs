@@ -7,7 +7,7 @@ public class QueForOrder
     private int id;
     private ArrayList _bremEvQue = new ArrayList();
     private ArrayList _evPresQue = new ArrayList();
-    private ArrayList _generalQue = new ArrayList();
+    private List<Que> _generalQue = new List<Que>();
 
     public QueForOrder(int id)
     {
@@ -48,4 +48,6 @@ public class QueForOrder
     {
         return id;
     }
+    
+    // samlet 
 }
