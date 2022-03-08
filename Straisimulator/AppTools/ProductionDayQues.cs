@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace Straisimulator.AppTools;
 
-public class AllOrderQues
+public class ProductionDayQues
 {
-    private ArrayList _orders = new ArrayList();
+    private List<QueForOrder> _orders = new List<QueForOrder>();
 
-    public AllOrderQues()
+    public ProductionDayQues()
     {
         
     }
@@ -23,7 +23,7 @@ public class AllOrderQues
         QueForOrder lastOrderQue = null;
         if (_orders.Count > 0)
         {
-            lastOrderQue = (QueForOrder)_orders[_orders.Count - 1];
+            lastOrderQue = _orders[_orders.Count - 1];
             return lastOrderQue;
         }
         else

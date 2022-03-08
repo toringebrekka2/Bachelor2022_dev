@@ -5,8 +5,8 @@ namespace Straisimulator.AppTools;
 public class QueForOrder
 {
     private int id;
-    private ArrayList _bremEvQue = new ArrayList();
-    private ArrayList _evPresQue = new ArrayList();
+    private List<Que> _bremEvQue = new List<Que>();
+    private List<Que> _evPresQue = new List<Que>();
     private List<Que> _generalQue = new List<Que>();
 
     public QueForOrder(int id)
@@ -24,12 +24,12 @@ public class QueForOrder
         _evPresQue.Add(que);
     }
 
-    public ArrayList GetBremEvQue()
+    public List<Que> GetBremEvQue()
     {
         return _bremEvQue;
     }
 
-    public ArrayList GetEvPresQue()
+    public List<Que> GetEvPresQue()
     {
         return _evPresQue;
     }
@@ -39,7 +39,7 @@ public class QueForOrder
         _generalQue.Add(que);
     }
 
-    public ArrayList GetGeneralQue()
+    public List<Que> GetGeneralQue()
     {
         return _generalQue;
     }

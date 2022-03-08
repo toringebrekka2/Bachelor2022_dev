@@ -24,7 +24,7 @@ public class DataFetchService
             .Include(p => p.Production)
             .Where(p => p.Production.MESProductionDate == proddate);
 
-        List<Skap> skaps = production.Select(p => new Skap
+        List<Skap> skap = production.Select(p => new Skap
             {
                 Itmcod = p.Comment,
                 Height = p.Height

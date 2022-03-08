@@ -2,10 +2,10 @@ namespace Straisimulator.Models;
 
 public class Order
 {
-    public List<Skap> Skaps { get; set; }
+    public List<Skap> Skap { get; set; }
 
-    public Order(List<Skap> skaps)
+    public Order(List<Skap> skap)
     {
-        Skaps = skaps;
+        Skap = skap;
     }
 }

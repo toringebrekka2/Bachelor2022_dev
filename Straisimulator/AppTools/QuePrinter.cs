@@ -4,7 +4,7 @@ namespace Straisimulator.AppTools;
 
 public class QuePrinter
 {
-    public void printQue(ArrayList que)
+    public void printQue(List<Que> que)
     {
         // til webside på et vis
     }
