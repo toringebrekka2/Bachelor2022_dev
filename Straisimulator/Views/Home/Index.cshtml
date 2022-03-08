@@ -12,7 +12,7 @@
     @foreach (Order order in Model.Orders)
     {
         <tr>  
-        @foreach(Skap skap in order.Skaps)
+        @foreach(Skap skap in order.Skap)
         {
             <td>@skap.QueTimeLeft</td>
             <td>@skap.QueTimeRight</td>

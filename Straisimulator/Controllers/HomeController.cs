@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Straisimulator.Data;
 using Straisimulator.Models;
 using Straisimulator.Services;
+using Straisimulator.ViewModels;
 
 namespace Straisimulator.Controllers;
 
@@ -17,9 +18,9 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index(DateTime proddate)
+    public IActionResult Index(DateTime prodDate)
     {
-        var productionDay = _dataFetchService.FetchProductionDay(proddate);
+        var productionDay = _dataFetchService.FetchProductionDay(prodDate);
         IndexViewModel model = new IndexViewModel();
         model.ProductionDay = productionDay;
         
