@@ -7,43 +7,59 @@ namespace Straisimulator.Services;
 
 public class DataFetchService
 {
-    public readonly ApplicationDbContext _applicationDbContext;
+    public readonly ApplicationDbContext ApplicationDbContext;
     
     public DataFetchService(ApplicationDbContext applicationDbContext)
     {
-        _applicationDbContext = applicationDbContext;
+        ApplicationDbContext = applicationDbContext;
     }
 
-    public ProductionDay FetchProductionDay(DateTime proddate)
+    // TODO: flette inn productionEvents i ProductionDay for å hente kø-tid
+    public ProductionDay FetchProductionDay(DateTime prodDate)
     {
-        var production = _applicationDbContext.Production
-            .Where(p => p.MESProductionDate == proddate)
+        //henter en tabell med Production-rader som har samme MESProductionDate som parameter "prodDate":
+        var production = ApplicationDbContext.Production
+            .Where(p => p.MESProductionDate == prodDate)
             .OrderBy(p => p.ProductionSequence);
 
-        var productionEvents = _applicationDbContext.ProductionEventLog
+        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate"
+        var productionEvents = ApplicationDbContext.ProductionEventLog
             .Include(p => p.Production)
-            .Where(p => p.Production.MESProductionDate == proddate);
+            .Where(p => p.Production.MESProductionDate == prodDate);
 
-        List<Skap> skap = production.Select(p => new Skap
+        //lager ett Skap objekt for hver rad i "production" og legger i en liste:
+        List<Skap> skaps = production.Select(p => new Skap
             {
-                Itmcod = p.Comment,
-                Height = p.Height
+                OrderNumber = p.OrderNumber,
+                ItemCom = p.Comment,
+                
             })
             .ToList();
-
+        
+        //oppretter en liste med denne dagens ordrer:
         List<Order> orders = new List<Order>();
-        string lastOrderNo = string.Empty;
+        
+        //holder styr på hvilken ordre loopen er på:
+        string lastOrderNumber = string.Empty;
         Order currentOrder = null;
-        List<Skap> currentSkaps = new List<Skap>();
+
+        //denne loopen kjører på hver rad i variabelen "production" (hvert skap) og lager nye Order objekter som skapene blir fordelt i:
         foreach (Skap skap in skaps)
         {
-            if (skap.OrderNo != lastOrderNo)
+            if (skap.OrderNumber.Equals(lastOrderNumber) == false )
             {
-                currentOrder = new Order(currentSkaps);
-
-                orders.Add(currentOrder);
-
-                currentOrder = skap.OrderNo;
+                if (currentOrder != null)
+                {
+                    orders.Add(currentOrder);
+                }
+                currentOrder = new Order();
+                currentOrder.OrderNumber = skap.OrderNumber;
+                currentOrder.Skap.Add(skap);
+                lastOrderNumber = currentOrder.OrderNumber;
+            }
+            else
+            {
+                currentOrder.Skap.Add(skap);
             }
         }
 
@@ -51,7 +67,8 @@ public class DataFetchService
         {
             Orders = orders
         };
-
+        
+        //til slutt returneres denne dagens produksjon (et ProductionDay objekt som holder lista med denne dagens ordrer (som hver holder en liste med skap)):
         return productionDay;
     }
 }

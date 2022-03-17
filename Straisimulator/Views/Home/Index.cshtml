@@ -9,7 +9,7 @@
 </div>
 <table>
     <tbody>
-    @foreach (Order order in Model.Orders)
+    @foreach (Order order in Model.ProductionDay.Orders)
     {
         <tr>  
         @foreach(Skap skap in order.Skap)
