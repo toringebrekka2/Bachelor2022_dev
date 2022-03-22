@@ -22,7 +22,7 @@ public class DataFetchService
             .Where(p => p.MESProductionDate == prodDate)
             .OrderBy(p => p.ProductionSequence);
 
-        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate":
+        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate" agfjhgajgyh:
         var productionEvents = ApplicationDbContext.ProductionEventLog
             .Include(p => p.Production).Include(p => p.EventType)
             .Where(p => p.Production.MESProductionDate == prodDate);
