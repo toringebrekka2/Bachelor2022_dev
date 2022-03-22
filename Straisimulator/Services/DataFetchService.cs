@@ -22,10 +22,14 @@ public class DataFetchService
             .Where(p => p.MESProductionDate == prodDate)
             .OrderBy(p => p.ProductionSequence);
 
-        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate"
+        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate":
         var productionEvents = ApplicationDbContext.ProductionEventLog
-            .Include(p => p.Production)
+            .Include(p => p.Production).Include(p => p.EventType)
             .Where(p => p.Production.MESProductionDate == prodDate);
+        
+        //henter en hele productionEventTypes tabellen, men tar kun med EventType (som er id):
+        var productionEventTypes = ApplicationDbContext.ProductionEventTypes
+            .Include(e => e.EventType).Include(e => e.DescriptionE);
 
         //lager ett Skap objekt for hver rad i "production" og legger i en liste:
         List<Skap> skaps = production.Select(p => new Skap
@@ -36,6 +40,14 @@ public class DataFetchService
             })
             .ToList();
         
+        //lager et
+        List<ProductionEventTypes> eventTypes = productionEventTypes.Select(e => new ProductionEventTypes
+            {
+                EventType = e.EventType,
+                DescriptionE = e.DescriptionE,
+            })
+            .ToList();
+
         //oppretter en liste med denne dagens ordrer:
         List<Order> orders = new List<Order>();
         

@@ -2,6 +2,7 @@ using System.Collections;using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Straisimulator.AppTools;
 using Straisimulator.Data;
+using Straisimulator.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(opts =>
 });
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+//builder.Services.AddMvcCore().AddApiExplorer();
 
 
 /* ---- App specific ---- */

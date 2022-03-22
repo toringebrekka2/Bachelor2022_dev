@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "g2VixFWkiVTUzMv6NLZCJ6hT8oH6KGTwfwxx8/WTWHk=",
+  "Hash": "3Kw9e7aRj9W/Rb+4iPwMupYLzpBzq2AyMNzwI5/XVRA=",
   "Source": "Straisimulator",
   "BasePath": "_content/Straisimulator",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/obj/Debug/net6.0/scopedcss/projectbundle/Straisimulator.bundle.scp.css"
+    },
+    {
+      "Identity": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/wwwroot/.DS_Store",
+      "SourceId": "Straisimulator",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/wwwroot/",
+      "BasePath": "_content/Straisimulator",
+      "RelativePath": ".DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/.DS_Store"
     },
     {
       "Identity": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/wwwroot/css/site.css",
@@ -100,6 +117,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/js/site.js"
+    },
+    {
+      "Identity": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/wwwroot/lib/.DS_Store",
+      "SourceId": "Straisimulator",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/wwwroot/",
+      "BasePath": "_content/Straisimulator",
+      "RelativePath": "lib/.DS_Store",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/lib/.DS_Store"
     },
     {
       "Identity": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",

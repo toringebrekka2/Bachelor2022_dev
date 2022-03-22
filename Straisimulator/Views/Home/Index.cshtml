@@ -5,8 +5,13 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form action="SetDate" method="post">
+        <label>Enter production day:</label><br/>
+        <input type="date" name="prodDay" required/><br/>
+        <input type="submit" value="Get"/>
+    </form>
 </div>
+
 <table>
     <tbody>
     @foreach (Order order in Model.ProductionDay.Orders)
@@ -14,8 +19,7 @@
         <tr>  
         @foreach(Skap skap in order.Skap)
         {
-            <td>@skap.QueTimeLeft</td>
-            <td>@skap.QueTimeRight</td>
+            <td>@skap.OrderNumber</td>
         }
         </tr>
     }
