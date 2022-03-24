@@ -5,23 +5,14 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <!--<form action="SetDate" method="post">
+    <form asp-controller="Home" asp-action="Result" method="post">
         <label>Enter production day:</label><br/>
-        <input type="date" name="prodDay" required/><br/>
-        <input type="submit" value="Get"/>
-    </form>-->
+        <label>YYYY</label>
+        <input type="number" name="ProdDay1" value="Year" required/><br/>
+        <label>MM</label>
+        <input type="number" name="ProdDay2" value="Month" required/><br/>
+        <label>DD</label>
+        <input type="number" name="ProdDay3" value="Day" required/><br/>
+        <input type="submit" value="Fetch"/>
+    </form>
 </div>
-
-<table>
-    <tbody>
-    <!--//foreach (Order order in Model.ProductionDay.Orders)
-    {
-        <tr>  
-        //foreach(Skap skap in order.Skap)
-        {
-            <td>//skap.OrderNumber</td>
-        }
-        </tr>
-    }-->
-    </tbody>
-</table>

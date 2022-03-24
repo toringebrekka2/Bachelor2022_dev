@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Straisimulator.Data;
 using Straisimulator.Data.Entities;
-/*using Straisimulator.Models;
+using Straisimulator.Models;
 
 namespace Straisimulator.Services;
 
@@ -13,48 +13,59 @@ public class DataFetchService
     {
         ApplicationDbContext = applicationDbContext;
     }
-
-    // TODO: flette inn productionEvents i ProductionDay for å hente kø-tid
+    
     public ProductionDay FetchProductionDay(DateTime prodDate)
     {
+        /****************************Queries******************************************/
+        
         //henter en tabell med Production-rader som har samme MESProductionDate som parameter "prodDate":
         var production = ApplicationDbContext.Production
             .Where(p => p.MESProductionDate == prodDate)
             .OrderBy(p => p.ProductionSequence);
 
-        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate" agfjhgajgyh:
-        var productionEvents = ApplicationDbContext.ProductionEventLog
-            .Include(p => p.Production).Include(p => p.EventType)
-            .Where(p => p.Production.MESProductionDate == prodDate);
-        
-        //henter en hele productionEventTypes tabellen, men tar kun med EventType (som er id):
-        var productionEventTypes = ApplicationDbContext.ProductionEventTypes
-            .Include(e => e.EventType).Include(e => e.DescriptionE);
+        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate":
+        var productionEvents = ApplicationDbContext.ProductionEvent
+            .Include(p => p.ProductionId)
+            .Where(p => p.ProductionId.MESProductionDate == prodDate)
+            .Include(p => p.EventType);
 
-        //lager ett Skap objekt for hver rad i "production" og legger i en liste:
-        List<Skap> skaps = production.Select(p => new Skap
+        //henter en hele productionEventTypes tabellen, men tar kun med EventType (som er id):
+        /*var productionEventTypes = ApplicationDbContext.ProductionEventTypes
+            .Include(e => e.EventType).Include(e => e.DescriptionE);*/
+
+        /****************************Legger resultatet i lister************************/
+        
+        List<ProductionEvent> prodEvents = productionEvents.Select(p => new ProductionEvent
             {
-                OrderNumber = p.OrderNumber,
-                ItemCom = p.Comment,
-                
+                Id = p.Id,
+                ProductionId = p.ProductionId,
+                TimeStamp = p.TimeStamp,
+                EventType = p.EventType
             })
             .ToList();
         
-        //lager et
-        List<ProductionEventTypes> eventTypes = productionEventTypes.Select(e => new ProductionEventTypes
+        /*List<ProductionEventTypes> eventTypes = productionEventTypes.Select(e => new ProductionEventTypes
             {
                 EventType = e.EventType,
                 DescriptionE = e.DescriptionE,
             })
+            .ToList();*/
+        
+        //lager ett Skap objekt for hver rad i "production" og legger i en liste:
+        List<Skap> skaps = production.Select(p => new Skap
+            {
+                ProductionId = p.ProductionId,
+                OrderNumber = p.OrderNumber,
+                ItemCom = p.Comment,
+            })
             .ToList();
 
-        //oppretter en liste med denne dagens ordrer:
-        List<Order> orders = new List<Order>();
+        /****************************Sorterer skapene i ordrer**************************/
         
+        List<Order> orders = new List<Order>();
         //holder styr på hvilken ordre loopen er på:
         string lastOrderNumber = string.Empty;
         Order currentOrder = null;
-
         //denne loopen kjører på hver rad i variabelen "production" (hvert skap) og lager nye Order objekter som skapene blir fordelt i:
         foreach (Skap skap in skaps)
         {
@@ -77,10 +88,11 @@ public class DataFetchService
 
         ProductionDay productionDay = new ProductionDay()
         {
-            Orders = orders
+            Orders = orders,
+            Events = prodEvents
         };
         
         //til slutt returneres denne dagens produksjon (et ProductionDay objekt som holder lista med denne dagens ordrer (som hver holder en liste med skap)):
         return productionDay;
     }
-}*/
+}
