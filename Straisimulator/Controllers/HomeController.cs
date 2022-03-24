@@ -38,10 +38,20 @@ public class HomeController : Controller
         
         List<SkapVegg> skap = new List<SkapVegg>();
         
-        SkapVegg skap1 = new SkapVegg(1, "Overskap 50cm", 58, 65, 153, 212);
-        SkapVegg skap2 = new SkapVegg(2, "Overskap 60cm", 65, 87, 84, 233);
+        SkapVegg skap1 = new SkapVegg(8333, "Vetilatorskap for Slimline H:72,0 cm", 82, 65, 83, 67);
+        SkapVegg skap2 = new SkapVegg(8332, "Overskap 80 cm m/2 dører H:72.0 cm", 85, 89, 86, 90);
+        SkapVegg skap3 = new SkapVegg(8331, "Overskap 80 cm m/2 dører H:72.0 cm", 85, 81, 86, 82);
+        SkapVegg skap4 = new SkapVegg(8330, "Overskap 80 cm m/2 dører H:72.0 cm", 80, 89, 81, 91);
+        SkapVegg skap5 = new SkapVegg(8329, "Overskap 70 cm m/2 dører Retning = Venstre", 63, 71, 65, 72);
+        SkapVegg skap6 = new SkapVegg(8328, "Kolonialseksjon 80 cm m/3 skuffer", 120, 82, 137, 137);
+        SkapVegg skap7 = new SkapVegg(8327, "Hjørnebenk 100x60 cm m/50 cm dør", 49, 53, 71, 54);
         skap.Add(skap1);
         skap.Add(skap2);
+        skap.Add(skap3);
+        skap.Add(skap4);
+        skap.Add(skap5);
+        skap.Add(skap6);
+        skap.Add(skap7);
         
         
         ResultaterViewModel model = new ResultaterViewModel();
