@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Straisimulator.Data;
 using Straisimulator.Models;
 //using Straisimulator.Services;
@@ -19,6 +20,8 @@ public class HomeController : Controller
         /*_applicationDbContext = applicationDbContext;*/
     }
 
+    
+    
     public IActionResult Index(/*DateTime prodDay*/)
     {
         /*
@@ -29,6 +32,31 @@ public class HomeController : Controller
         
         return View(/*model*/);
     }
+
+    public IActionResult Resultater()
+    {
+        
+        List<SkapVegg> skap = new List<SkapVegg>();
+        
+        SkapVegg skap1 = new SkapVegg(1, "Overskap 50cm", 58, 65, 153, 212);
+        SkapVegg skap2 = new SkapVegg(2, "Overskap 60cm", 65, 87, 84, 233);
+        skap.Add(skap1);
+        skap.Add(skap2);
+        
+        
+        ResultaterViewModel model = new ResultaterViewModel();
+        model.Skap = skap;
+
+        return View(model);
+        
+    }
+
+    public IActionResult Simulator()
+    {
+       return View();
+    }
+    
+    
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

@@ -1,0 +1,117 @@
+﻿
+
+@model Straisimulator.ViewModels.ResultaterViewModel
+@{
+    ViewData["Title"] = "Resultater";
+}
+ <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<h3>Resultater Strai Kjøkken</h3>
+
+
+<container>
+    <table class="table table-bordered table-striped" style="width:100%">
+        Evert 1
+        <th>
+            Product ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Operasjonstid (sekunder)
+        </th>
+        <th>
+            Syklustid (sekunder)
+        </th>
+        <tbody>
+        @foreach (SkapVegg skapVegg in Model.Skap)
+        {
+            <tr>
+                <td>
+                    @skapVegg.Id
+                </td>
+                <td>
+                    @skapVegg.Name
+                </td>
+                <td>
+                    @skapVegg.OpTimeEvert1
+                </td>
+                <td>
+                    @skapVegg.CyTimeEvert1
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        Evert 2
+        <th>
+            Product ID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Operasjonstid (sekunder)
+        </th>
+        <th>
+            Syklustid (sekunder)
+        </th>
+        <tbody>
+        @foreach (SkapVegg skapVegg1 in Model.Skap)
+        {
+            <tr>
+                <td>
+                    @skapVegg1.Id
+                </td>
+                <td>
+                    @skapVegg1.Name
+                </td>
+                <td>
+                    @skapVegg1.OpTimeEvert2
+                </td>
+                <td>
+                    @skapVegg1.CyTimeEvert2
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</container>
+
+<script type="text/javascript">
+window.onload = function () {
+	var chart = new CanvasJS.Chart("chartContainer", {
+		axisX: {
+			labelMaxWidth: 50,
+			labelWrap: true, 
+			interval: 1,
+			prefix: "Skap "
+		},
+		title: {
+			text: "Køtid Chart"
+		},
+		data: [
+		{
+			type: "line",
+			dataPoints: [
+                { y: 0 },
+				{ y: 71 }, 
+				{ y: 55 },           
+			]
+		}
+		]
+	});
+	chart.render();
+}
+</script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+
+
+<br/><br/><br/>
