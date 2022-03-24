@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Straisimulator.Data;
 using Straisimulator.Data.Entities;
-using Straisimulator.Models;
+/*using Straisimulator.Models;
 
 namespace Straisimulator.Services;
 
@@ -83,4 +83,4 @@ public class DataFetchService
         //til slutt returneres denne dagens produksjon (et ProductionDay objekt som holder lista med denne dagens ordrer (som hver holder en liste med skap)):
         return productionDay;
     }
-}
+}*/
