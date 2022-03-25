@@ -10,4 +10,6 @@ public class Production
     public DateTime MESProductionDate;
     public string OrderNumber { get; set; }
     public string Comment { get; set; }
+
+    public ICollection<ProductionEvent> ProductionEvents { get; set; }
 }

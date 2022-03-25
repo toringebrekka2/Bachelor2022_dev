@@ -5,7 +5,7 @@ using Straisimulator.Models;
 
 namespace Straisimulator.Services;
 
-public class DataFetchService
+public class DataFetchService : IDataFetchService
 {
     public readonly ApplicationDbContext ApplicationDbContext;
     
@@ -20,22 +20,23 @@ public class DataFetchService
         
         //henter en tabell med Production-rader som har samme MESProductionDate som parameter "prodDate":
         var production = ApplicationDbContext.Production
-            .Where(p => p.MESProductionDate == prodDate)
-            .OrderBy(p => p.ProductionSequence);
+            .Where(p => p.OrderNumber != String.Empty)
+            .OrderBy(p => p.OrderNumber);
 
         //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate":
         var productionEvents = ApplicationDbContext.ProductionEvent
-            .Include(p => p.ProductionId)
-            .Where(p => p.ProductionId.MESProductionDate == prodDate)
-            .Include(p => p.EventType);
+            .Include(p => p.ProductionEventType)
+            .Include(p => p.Production)
+            .Where(p => p.Production.MESProductionDate == prodDate);
+            
 
-        //henter en hele productionEventTypes tabellen, men tar kun med EventType (som er id):
+        //henter hele productionEventTypes tabellen, men tar kun med EventType (som er id):
         /*var productionEventTypes = ApplicationDbContext.ProductionEventTypes
             .Include(e => e.EventType).Include(e => e.DescriptionE);*/
 
         /****************************Legger resultatet i lister************************/
         
-        List<ProductionEvent> prodEvents = productionEvents.Select(p => new ProductionEvent
+        /*List<ProductionEvent> prodEvents = productionEvents.Select(p => new ProductionEvent
             {
                 Id = p.Id,
                 ProductionId = p.ProductionId,
@@ -69,7 +70,7 @@ public class DataFetchService
         //denne loopen kjører på hver rad i variabelen "production" (hvert skap) og lager nye Order objekter som skapene blir fordelt i:
         foreach (Skap skap in skaps)
         {
-            if (skap.OrderNumber.Equals(lastOrderNumber) == false )
+            if (skap.OrderNumber.Equals(lastOrderNumber) == false)
             {
                 if (currentOrder != null)
                 {
@@ -86,10 +87,12 @@ public class DataFetchService
             }
         }
 
+        /****************************Oppretter og returnerer ProductionDay*****************/
+        
         ProductionDay productionDay = new ProductionDay()
         {
-            Orders = orders,
-            Events = prodEvents
+            Orders = orders
+            //Events = prodEvents
         };
         
         //til slutt returneres denne dagens produksjon (et ProductionDay objekt som holder lista med denne dagens ordrer (som hver holder en liste med skap)):

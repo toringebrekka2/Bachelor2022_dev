@@ -9,14 +9,13 @@ namespace Straisimulator.Controllers;
 
 public class HomeController : Controller
 {
-    private ApplicationDbContext _applicationDbContext;
-    private DataFetchService _dataFetchService;
+    private IDataFetchService _dataFetchService;
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ILogger<HomeController> logger, ApplicationDbContext applicationDbContext)
+    public HomeController(ILogger<HomeController> logger, IDataFetchService dataFetchService)
     {
         _logger = logger;
-        _applicationDbContext = applicationDbContext;
+        _dataFetchService = dataFetchService;
     }
 
     public IActionResult Index()
@@ -27,7 +26,6 @@ public class HomeController : Controller
     public IActionResult Result(int prodDay1, int prodDay2, int prodDay3)
     {
         DateTime prodDay = new DateTime(prodDay1, prodDay2, prodDay3);
-        _dataFetchService = new DataFetchService(_applicationDbContext);
         var productionDay = _dataFetchService.FetchProductionDay(prodDay);
         ResultViewModel model = new ResultViewModel();
         model.ProductionDay = productionDay;
