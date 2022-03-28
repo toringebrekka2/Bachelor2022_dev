@@ -8,9 +8,9 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    //public DbSet<Production> Production { get; set; }
-    //public DbSet<ProductionEventLog> ProductionEventLog { get; set; }
-    //public DbSet<ProductionEventTypes> ProductionEventTypes { get; set; }
+    public DbSet<Production> Production { get; set; }
+    public DbSet<ProductionEvent> ProductionEvent { get; set; }
+    public DbSet<ProductionEventTypes> ProductionEventTypes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

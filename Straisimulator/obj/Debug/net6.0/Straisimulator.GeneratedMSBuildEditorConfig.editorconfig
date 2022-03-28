@@ -19,8 +19,17 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+<<<<<<< HEAD
 [C:/Strai Kjøkken - Bachelor/Bachelor2022_dev/Straisimulator/Views/Home/Resultater.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxSZXN1bHRhdGVyLmNzaHRtbA==
+=======
+[/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Views/Home/Result.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9SZXN1bHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+>>>>>>> devd
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Strai Kjøkken - Bachelor/Bachelor2022_dev/Straisimulator/Views/Home/Simulator.cshtml]

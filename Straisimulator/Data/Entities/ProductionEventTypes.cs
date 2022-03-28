@@ -1,10 +1,12 @@
-/*using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace Straisimulator.Data.Entities;
 
-[Keyless]
 public class ProductionEventTypes
 {
+    [Key]
     public int EventType { get; set; }
     public string DescriptionE { get; set; }
-}*/
+    public ICollection<ProductionEvent> ProductionEvents { get; set; }
+}
