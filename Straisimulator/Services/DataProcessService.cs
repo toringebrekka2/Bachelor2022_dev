@@ -7,10 +7,10 @@ public class DataProcessService
         
     }
     
-    public List<int> getOpAndCykTime(string inputText)
+    /*public List<int> getOpAndCykTime(string inputText)
     {
-        
-    }
+        string pattern = @"tid: (?<operasjonstid>\d{2}:\d{2}) .+tid: (?<cykeltid>\d{2}:\d{2})";
+    }*/
 
     public bool checkForOperation(string input)
     {
@@ -23,16 +23,11 @@ public class DataProcessService
             return false;
         }
     }
-    
-    //tid: (?<operasjonstid>\d{2}:\d{2}) .+tid: (?<cykeltid>\d{2}:\d{2})
-    
-    //henter hele productionEventTypes tabellen, men tar kun med EventType (som er id):
-    /*var productionEventTypes = ApplicationDbContext.ProductionEventTypes
 
-    /*List<ProductionEventTypes> eventTypes = productionEventTypes.Select(e => new ProductionEventTypes
-        {
-            EventType = e.EventType,
-            DescriptionE = e.DescriptionE,
-        })
-        .ToList();*/
+    public int calculateQueTime(DateTime skap1Started, DateTime skap2Started)
+    {
+        TimeSpan que = skap2Started - skap1Started;
+        int secondsOfQue = que.Seconds;
+        return secondsOfQue;
+    }
 }

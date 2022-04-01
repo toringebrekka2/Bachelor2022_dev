@@ -85,5 +85,13 @@ public class DataFetchService : IDataFetchService
         return productionEventList;
     }
 
-    
+    //henter hele productionEventTypes tabellen, men tar kun med EventType (som er id):
+    /*var productionEventTypes = ApplicationDbContext.ProductionEventTypes
+
+    /*List<ProductionEventTypes> eventTypes = productionEventTypes.Select(e => new ProductionEventTypes
+        {
+            EventType = e.EventType,
+            DescriptionE = e.DescriptionE,
+        })
+        .ToList();*/
 }
