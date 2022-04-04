@@ -1,3 +1,4 @@
+using Straisimulator.Data.Entities;
 using Straisimulator.Models;
 
 namespace Straisimulator.Services;
