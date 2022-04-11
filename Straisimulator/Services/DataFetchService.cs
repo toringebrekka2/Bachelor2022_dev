@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore;
 using Straisimulator.Data;
 using Straisimulator.Data.Entities;
@@ -57,26 +58,25 @@ public class DataFetchService : IDataFetchService
         ProductionDay productionDay = new ProductionDay()
         {
             Orders = orders
-            //Events = prodEvents
         };
         return productionDay;
     }
 
-    public ProductionEventList fetchProductionEvents(string OrderId)
+    public ProductionEventList FetchProductionEvents(string orderId)
     {
         //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate":
-        var productionEvents = ApplicationDbContext.ProductionEvent
+        var productionEvents = ApplicationDbContext.ProductionEventLog
             .Include(p => p.ProductionEventType)
             .Include(p => p.Production)
-            .Where(p => p.Production.OrderNumber == OrderId);
-        
-        List<ProductionEvent> prodEvents = productionEvents.Select(p => new ProductionEvent
+            .Where(p => p.Production.OrderNumber == orderId)
+            .OrderByDescending(p => p.TimeStamp);
+
+        List<Event> prodEvents = productionEvents.Select(p => new Event
             {
                 Id = p.Id,
                 TimeStamp = p.TimeStamp,
                 ExtraInfo = p.ExtraInfo,
                 ProductionId = p.ProductionId,
-                EventType = p.EventType
             })
             .ToList();
         

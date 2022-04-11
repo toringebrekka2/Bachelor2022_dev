@@ -32,6 +32,22 @@ public class HomeController : Controller
         model.ProductionDay = productionDay;
         return View(model);
     }
+    
+    public IActionResult HentEventLog()
+    {
+        return View();
+    }
+
+    public IActionResult HentEventLogRes(String orderId)
+    {
+        //Når vi kommer til å bruke regex:
+        //DataProcessService dataProcessService = new DataProcessService();
+        ProductionEventList productionEvents = new ProductionEventList();
+        productionEvents = _dataFetchService.FetchProductionEvents(orderId);
+        HentEventLogResViewModel model = new HentEventLogResViewModel();
+        model.ProductionEventList = productionEvents;
+        return View(model);
+    }
 
     public IActionResult Resultater()
     {
@@ -52,8 +68,7 @@ public class HomeController : Controller
         skap.Add(skap5);
         skap.Add(skap6);
         skap.Add(skap7);
-        
-        
+
         ResultaterViewModel model = new ResultaterViewModel();
         model.Skap = skap;
 
@@ -65,8 +80,6 @@ public class HomeController : Controller
     {
        return View();
     }
-    
-    
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
