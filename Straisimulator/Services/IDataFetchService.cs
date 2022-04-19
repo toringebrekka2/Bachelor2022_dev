@@ -6,4 +6,5 @@ namespace Straisimulator.Services;
 public interface IDataFetchService
 {
     ProductionDay FetchProductionDay(DateTime prodDate);
+    ProductionEventList FetchProductionEvents(String orderId);
 }
