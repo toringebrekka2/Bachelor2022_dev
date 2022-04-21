@@ -15,7 +15,7 @@ public class DataProcessService
     //etter substrings som ikke finnes
     public List<TimeSpan> getOpAndCykTime(string inputText)
     {
-        string pattern = @"tid: ((?<operasjonstid>(\d{2}:\d{2})|\d+)s).+tid: (?<cykeltid>\d{2}:\d{2}|\d+?.?\d+?)s";
+        string pattern = @"tid: ((?<operasjonstid>(\d{2}:\d{2})|\d+)s?).+tid: (?<cykeltid>\d{2}:\d{2}|\d+?.?\d+?)s?";
         Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
         Match match = r.Match(inputText);
         
@@ -29,29 +29,36 @@ public class DataProcessService
 
             TimeSpan opTime;
             TimeSpan cykTime;
-            if (op.Substring(0, 2) == String.Empty)
+            if(op.Contains(':') && !cyk.Contains(':'))
             {
-                opTime = new TimeSpan(0, 0, 0, Convert.ToInt32(op.Substring(3, 2)));
-                cykTime = new TimeSpan(0, 0, Convert.ToInt32(cyk.Substring(0, 2)),
-                    Convert.ToInt32(cyk.Substring(3, 2)));
-            }
-            else if (cyk.Substring(0, 2) == String.Empty)
-            {
-                opTime = new TimeSpan(0, 0, Convert.ToInt32(op.Substring(0, 2)),
-                    Convert.ToInt32(op.Substring(3, 2)));
-                cykTime = new TimeSpan(0, 0, 0, Convert.ToInt32(cyk.Substring(3, 2)));
+                string opMin = op.Substring(0, 2);
+                string opSec = op.Substring(3, 2);
+                opTime = new TimeSpan(0, 0, Convert.ToInt32(opMin), Convert.ToInt32(opSec));
+                cykTime = new TimeSpan(0, 0, 0, Convert.ToInt32(Math.Round(Convert.ToDouble(cyk))));
             } 
-            else if (op.Substring(0, 2) == String.Empty && cyk.Substring(0, 2) == String.Empty)
+            else if(cyk.Contains(':') && !op.Contains(':'))
             {
-                opTime = new TimeSpan(0, 0, 0, Convert.ToInt32(op.Substring(3, 2)));
-                cykTime = new TimeSpan(0, 0, 0, Convert.ToInt32(cyk.Substring(3, 2)));
-            }
+                string cykMin = cyk.Substring(0, 2);
+                string cykSec = cyk.Substring(3, 2);
+                opTime = new TimeSpan(0, 0, 0, Convert.ToInt32(Math.Round(Convert.ToDouble(op))));
+                cykTime = new TimeSpan(0, 0, Convert.ToInt32(cykMin), Convert.ToInt32(cykSec));
+            } 
+            else if(op.Contains(':') && cyk.Contains(':'))
+            {
+                string opMin = op.Substring(0, 2);
+                string opSec = op.Substring(3, 2);
+                opTime = new TimeSpan(0, 0, Convert.ToInt32(opMin), Convert.ToInt32(opSec));
+                
+                string cykMin = cyk.Substring(0, 2);
+                string cykSec = cyk.Substring(3, 2);
+                cykTime = new TimeSpan(0, 0, Convert.ToInt32(cykMin), Convert.ToInt32(cykSec));
+            } 
             else
             {
-                opTime = new TimeSpan(0, 0, Convert.ToInt32(op.Substring(0, 2)), Convert.ToInt32(op.Substring(3, 2)));
-                cykTime = new TimeSpan(0, 0, Convert.ToInt32(cyk.Substring(0, 2)),
-                    Convert.ToInt32(cyk.Substring(3, 2)));
+                opTime = new TimeSpan(0, 0, 0, Convert.ToInt32(Math.Round(Convert.ToDouble(op))));
+                cykTime = new TimeSpan(0, 0, 0, Convert.ToInt32(Math.Round(Convert.ToDouble(cyk))));
             }
+            
             opAndCykList.Add(opTime);
             opAndCykList.Add(cykTime);
         }
