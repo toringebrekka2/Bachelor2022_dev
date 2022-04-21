@@ -9,20 +9,53 @@ public class DataProcessService
         
     }
     
-    public List<int> getOpAndCykTime(string inputText)
+    //hvis minutter er tom, må den ta hensyn til det
+    //denne regex funker hvis det kun er i sekunder
+    //problemet er at sjekken nedfor forventer at første delen av verdien fra regex er tom/mellomrom(?) og dermed leter
+    //etter substrings som ikke finnes
+    public List<TimeSpan> getOpAndCykTime(string inputText)
     {
-        string pattern = @"tid: (?<operasjonstid>\d{2}:\d{2}) .+tid: (?<cykeltid>\d{2}:\d{2})";
-        Match match = Regex.Match(inputText, pattern);
+        string pattern = @"tid: ((?<operasjonstid>(\d{2}:\d{2})|\d+)s).+tid: (?<cykeltid>\d{2}:\d{2}|\d+?.?\d+?)s";
+        Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
+        Match match = r.Match(inputText);
+        
+        //vil alltid bare ha 2 entries:
+        List<TimeSpan> opAndCykList = new List<TimeSpan>();
 
         if (match.Success)
         {
-            string test = match.Groups["operationstid"].Value;
-            string test2 = match.Groups["cykeltid"].Value;
+            string op = match.Groups["operasjonstid"].Value;
+            string cyk = match.Groups["cykeltid"].Value;
 
-            TimeSpan time = new TimeSpan(0, 0, Convert.ToInt32(test.Substring(0, 2)),
-                Convert.ToInt32(test.Substring(3, 2)));
+            TimeSpan opTime;
+            TimeSpan cykTime;
+            if (op.Substring(0, 2) == String.Empty)
+            {
+                opTime = new TimeSpan(0, 0, 0, Convert.ToInt32(op.Substring(3, 2)));
+                cykTime = new TimeSpan(0, 0, Convert.ToInt32(cyk.Substring(0, 2)),
+                    Convert.ToInt32(cyk.Substring(3, 2)));
+            }
+            else if (cyk.Substring(0, 2) == String.Empty)
+            {
+                opTime = new TimeSpan(0, 0, Convert.ToInt32(op.Substring(0, 2)),
+                    Convert.ToInt32(op.Substring(3, 2)));
+                cykTime = new TimeSpan(0, 0, 0, Convert.ToInt32(cyk.Substring(3, 2)));
+            } 
+            else if (op.Substring(0, 2) == String.Empty && cyk.Substring(0, 2) == String.Empty)
+            {
+                opTime = new TimeSpan(0, 0, 0, Convert.ToInt32(op.Substring(3, 2)));
+                cykTime = new TimeSpan(0, 0, 0, Convert.ToInt32(cyk.Substring(3, 2)));
+            }
+            else
+            {
+                opTime = new TimeSpan(0, 0, Convert.ToInt32(op.Substring(0, 2)), Convert.ToInt32(op.Substring(3, 2)));
+                cykTime = new TimeSpan(0, 0, Convert.ToInt32(cyk.Substring(0, 2)),
+                    Convert.ToInt32(cyk.Substring(3, 2)));
+            }
+            opAndCykList.Add(opTime);
+            opAndCykList.Add(cykTime);
         }
-        return new List<int>();
+        return opAndCykList;
     }
 
     public bool checkForOperation(string input)

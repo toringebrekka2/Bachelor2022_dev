@@ -18,7 +18,7 @@ public class DataFetchService : IDataFetchService
     public ProductionDay FetchProductionDay(DateTime prodDate)
     {
 
-        //henter en tabell med Production-rader som har samme MESProductionDate som parameter "prodDate":
+        //henter en tabell med Production-rader som har samme MESProductionDate som parameter "prodDate"
         var production = ApplicationDbContext.Production
             .Where(p => p.OrderNumber != String.Empty)
             .OrderBy(p => p.OrderNumber);
@@ -32,10 +32,12 @@ public class DataFetchService : IDataFetchService
             .ToList();
 
         List<Order> orders = new List<Order>();
+        
         //holder styr på hvilken ordre loopen er på:
         string lastOrderNumber = string.Empty;
         Order currentOrder = null;
-        //denne loopen kjører på hver rad i variabelen "production" (hvert skap) og lager nye Order objekter som skapene blir fordelt i:
+        
+        //denne loopen kjører på hver rad i variabelen "production" (hvert skap) og lager nye Order objekter som skapene blir fordelt i
         foreach (Skap skap in skaps)
         {
             if (skap.OrderNumber.Equals(lastOrderNumber) == false)
@@ -54,7 +56,7 @@ public class DataFetchService : IDataFetchService
                 currentOrder.Skap.Add(skap);
             }
         }
-
+        
         ProductionDay productionDay = new ProductionDay()
         {
             Orders = orders
@@ -64,7 +66,7 @@ public class DataFetchService : IDataFetchService
 
     public ProductionEventList FetchProductionEvents(string orderId)
     {
-        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate":
+        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate"
         var productionEvents = ApplicationDbContext.ProductionEventLog
             .Include(p => p.ProductionEventType)
             .Include(p => p.Production)
@@ -79,6 +81,23 @@ public class DataFetchService : IDataFetchService
                 ProductionId = p.ProductionId,
             })
             .ToList();
+
+        //fjerner Event objekter i prodEvents der ExtraInfo er tom
+        for (int i = 0; i < prodEvents.Count; i++)
+        {
+            if (prodEvents[i].ExtraInfo == String.Empty)
+            {
+                prodEvents.RemoveAt(i);
+            }
+        }
+        
+        //legger til operation- og cykeltid som timespan i hvert event i prodEvents
+        DataProcessService dataProcessService = new DataProcessService();
+        foreach (Event ev in prodEvents)
+        {
+            List<TimeSpan> list = dataProcessService.getOpAndCykTime(ev.ExtraInfo);
+            ev.OpAndCykAsTimeSpan = list;
+        }
         
         ProductionEventList productionEventList = new ProductionEventList();
         productionEventList.ProductionEvents = prodEvents;

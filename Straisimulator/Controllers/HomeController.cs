@@ -40,10 +40,7 @@ public class HomeController : Controller
 
     public IActionResult HentEventLogRes(String orderId)
     {
-        //Når vi kommer til å bruke regex:
-        //DataProcessService dataProcessService = new DataProcessService();
-        ProductionEventList productionEvents = new ProductionEventList();
-        productionEvents = _dataFetchService.FetchProductionEvents(orderId);
+        ProductionEventList productionEvents = _dataFetchService.FetchProductionEvents(orderId);
         HentEventLogResViewModel model = new HentEventLogResViewModel();
         model.ProductionEventList = productionEvents;
         return View(model);
