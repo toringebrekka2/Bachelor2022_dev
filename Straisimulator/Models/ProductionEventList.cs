@@ -4,5 +4,5 @@ namespace Straisimulator.Models;
 
 public class ProductionEventList
 {
-    public List<ProductionEvent> ProductionEvents { get; set; }
+    public List<Event> ProductionEvents { get; set; }
 }

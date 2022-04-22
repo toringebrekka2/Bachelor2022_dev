@@ -11,5 +11,5 @@ public class Production
     public string OrderNumber { get; set; }
     public string Comment { get; set; }
 
-    public ICollection<ProductionEvent> ProductionEvents { get; set; }
+    public ICollection<ProductionEventLog> ProductionEvents { get; set; }
 }

@@ -15,6 +15,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = /Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Views/Home/HentEventLog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9IZW50RXZlbnRMb2cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Views/Home/HentEventLogRes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9IZW50RXZlbnRMb2dSZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

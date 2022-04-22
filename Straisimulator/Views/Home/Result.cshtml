@@ -5,15 +5,15 @@
 
 <table>
     <tbody>
-    @foreach (Order order in Model.ProductionDay.Orders)
-    {
-    <tr>  
-        @foreach(Skap skap in order.Skap)
+        @foreach (Order order in Model.ProductionDay.Orders)
         {
-        <td>@skap.OrderNumber</td>
+            <tr>  
+                @foreach(Skap skap in order.Skap)
+                {
+                <td>@skap.OrderNumber</td>
+                }
+            </tr>
         }
-    </tr>
-    }
     </tbody>
 </table>
 

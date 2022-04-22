@@ -8,5 +8,5 @@ public class ProductionEventTypes
     [Key]
     public int EventType { get; set; }
     public string DescriptionE { get; set; }
-    public ICollection<ProductionEvent> ProductionEvents { get; set; }
+    public ICollection<ProductionEventLog> ProductionEvents { get; set; }
 }

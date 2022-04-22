@@ -1,0 +1,32 @@
+@model Straisimulator.ViewModels.HentEventLogResViewModel
+@{
+    ViewData["Title"] = "Hent hendelseslogg";
+}
+
+<table>
+    <tbody>
+        @foreach(Event productionEvent in Model.ProductionEventList.ProductionEvents)
+        {
+            <tr>
+                <td>@productionEvent.Id</td>
+                <td> @productionEvent.TimeStamp</td>
+                <td> @productionEvent.OpAndCykAsTimeSpan.Count</td>
+                <td>
+                    @if(productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                    {
+                        @productionEvent.OpAndCykAsTimeSpan[0]
+                    }
+                </td>
+                <td>
+                    @if(productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                    {
+                        @productionEvent.OpAndCykAsTimeSpan[1]
+                    }
+                </td>
+                <br/>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Se det</h1>

@@ -22,17 +22,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 
-/* ---- App specific ---- */
-
-
-
-
-
-
-
-
-/* ---------------------- */
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
