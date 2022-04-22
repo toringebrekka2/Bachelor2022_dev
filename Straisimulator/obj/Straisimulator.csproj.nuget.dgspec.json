@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Straisimulator.csproj": {}
+    "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Bachelor2022_dev/Straisimulator/Straisimulator.csproj": {}
   },
   "projects": {
-    "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Straisimulator.csproj": {
+    "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Bachelor2022_dev/Straisimulator/Straisimulator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Straisimulator.csproj",
+        "projectUniqueName": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Bachelor2022_dev/Straisimulator/Straisimulator.csproj",
         "projectName": "Straisimulator",
-        "projectPath": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Straisimulator.csproj",
+        "projectPath": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Bachelor2022_dev/Straisimulator/Straisimulator.csproj",
         "packagesPath": "/Users/toringebrekka/.nuget/packages/",
-        "outputPath": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/obj/",
+        "outputPath": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Bachelor2022_dev/Straisimulator/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/toringebrekka/.nuget/NuGet/NuGet.Config"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6v0J4UPCIdnolbxAcfXQ9zAEzfdW8mEQ780c0m1F5ENtUd/v13JuzyRmMSySX1Z3EUEmwxYn0QLSwjvUfNsd1Q==",
+  "dgSpecHash": "oP654BiKJZ1SlScivuhrm3nXqDHe8Kmpk/Vot0jyiZgaBFRx7fL48VrnLWRt+kjO/urniJXHlrA1VADl3F0YdA==",
   "success": true,
-  "projectFilePath": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Straisimulator.csproj",
+  "projectFilePath": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Bachelor2022_dev/Straisimulator/Straisimulator.csproj",
   "expectedPackageFiles": [
     "/Users/toringebrekka/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/Users/toringebrekka/.nuget/packages/microsoft.aspnetcore.mvc.razor.extensions/6.0.2/microsoft.aspnetcore.mvc.razor.extensions.6.0.2.nupkg.sha512",
