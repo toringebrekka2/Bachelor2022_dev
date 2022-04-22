@@ -2598,24 +2598,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/toringebrekka/.nuget/packages/": {}
+    "C:\\Users\\ander\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Straisimulator.csproj",
+      "projectUniqueName": "C:\\Strai Kjøkken - Bachelor\\Bachelor2022_dev\\Straisimulator\\Straisimulator.csproj",
       "projectName": "Straisimulator",
-      "projectPath": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/Straisimulator.csproj",
-      "packagesPath": "/Users/toringebrekka/.nuget/packages/",
-      "outputPath": "/Users/toringebrekka/Strai Kjøkken - Bachelor/Rider/solutions/Straisimulator/Straisimulator/obj/",
+      "projectPath": "C:\\Strai Kjøkken - Bachelor\\Bachelor2022_dev\\Straisimulator\\Straisimulator.csproj",
+      "packagesPath": "C:\\Users\\ander\\.nuget\\packages\\",
+      "outputPath": "C:\\Strai Kjøkken - Bachelor\\Bachelor2022_dev\\Straisimulator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/toringebrekka/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\ander\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2671,7 +2673,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.101/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

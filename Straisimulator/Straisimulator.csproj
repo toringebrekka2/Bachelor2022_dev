@@ -16,4 +16,13 @@
       </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Content" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="wwwroot\images\Strailogo.png" />
+      <None Include="wwwroot\images\strai_picture_hero.jpg" />
+    </ItemGroup>
+
 </Project>
