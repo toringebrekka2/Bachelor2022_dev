@@ -9,17 +9,13 @@ public class DataProcessService
         
     }
     
-    //hvis minutter er tom, må den ta hensyn til det
-    //denne regex funker hvis det kun er i sekunder
-    //problemet er at sjekken nedfor forventer at første delen av verdien fra regex er tom/mellomrom(?) og dermed leter
-    //etter substrings som ikke finnes
     public List<TimeSpan> getOpAndCykTime(string inputText)
     {
         string pattern = @"tid: ((?<operasjonstid>(\d{2}:\d{2})|\d+)s?).+tid: (?<cykeltid>\d{2}:\d{2}|\d+?.?\d+?)s?";
         Regex r = new Regex(pattern, RegexOptions.IgnoreCase);
         Match match = r.Match(inputText);
         
-        //vil alltid bare ha 2 entries:
+        //vil alltid bare ha 2 entries
         List<TimeSpan> opAndCykList = new List<TimeSpan>();
 
         if (match.Success)
@@ -29,6 +25,8 @@ public class DataProcessService
 
             TimeSpan opTime;
             TimeSpan cykTime;
+            
+            //sjekker om operation- eller cykeltid inneholder ':'
             if(op.Contains(':') && !cyk.Contains(':'))
             {
                 string opMin = op.Substring(0, 2);
