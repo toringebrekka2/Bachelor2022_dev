@@ -25,6 +25,10 @@ _UpgradeReport_Files/
 bin/
 obj/
 Straisimulator/obj/
+<<<<<<< HEAD
+=======
+Straisimulator/bin/
+>>>>>>> deva
 TestResults/
 ###################
 # Web publish log #

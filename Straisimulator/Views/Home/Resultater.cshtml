@@ -10,28 +10,66 @@
 <br/>
 
 <container>
+	
+	<table class="table table-bordered table-hover" style="width:100%">
+    		<thead>
+            		<tr>
+                          <th scope="col">Brema</th>
+                          <th scope="col">Product ID</th>
+                          <th scope="col">Name</th>
+            			<th scope="col">Operasjonstid (sekunder)</th>
+	                    <th scope="col">Syklustid (sekunder)</th>
+	                    <th scope="col">Køtid Brema (sekunder)</th>
+                        </tr>
+            		</thead>
+    		<tbody>
+    		@foreach (SkapVegg skapVegg in Model.Skap)
+    		{
+    			<tr class="table-default">
+    				<td>
+                    					
+    				</td>
+    				<td style="text-align: center">
+    					@skapVegg.Id
+    				</td>
+    				<td style="text-align: left">
+    					@skapVegg.Description
+    				</td>
+    				<td style="text-align: right">
+    					@skapVegg.OpTimeBrema
+    				</td>
+				    <td style="text-align: right">
+					    @skapVegg.CyTimeBrema
+				    </td>
+
+			    </tr>
+    		}
+    		</tbody>
+    	</table>
+	
 	<table class="table table-bordered table-hover" style="width:100%">
 		<thead>
-        		<tr>
-                      <th scope="col">Evert 1</th>
-                      <th scope="col">Product ID</th>
-                      <th scope="col">Name</th>
-        			<th scope="col">Operasjonstid (sekunder)</th>
-        			<th scope="col">Syklustid (sekunder)</th>
-                    </tr>
-        		</thead>
+		<tr>
+			<th scope="col">Evert 1</th>
+			<th scope="col">Product ID</th>
+			<th scope="col">Name</th>
+			<th scope="col">Operasjonstid (sekunder)</th>
+			<th scope="col">Syklustid (sekunder)</th>
+			<th scope="col">Køtid Evert1 (sekunder)</th>
+		</tr>
+		</thead>
 		<tbody>
 		@foreach (SkapVegg skapVegg in Model.Skap)
 		{
 			<tr class="table-default">
 				<td>
-                					
+
 				</td>
 				<td style="text-align: center">
 					@skapVegg.Id
 				</td>
 				<td style="text-align: left">
-					@skapVegg.Name
+					@skapVegg.Description
 				</td>
 				<td style="text-align: right">
 					@skapVegg.OpTimeEvert1
@@ -47,25 +85,26 @@
 	<table class="table table-bordered table-hover" style="width:100%">
 		<thead>
 		<tr>
-              <th scope="col">Evert 2</th>
-              <th scope="col">Product ID</th>
-              <th scope="col">Name</th>
+			<th scope="col">Evert 2</th>
+			<th scope="col">Product ID</th>
+			<th scope="col">Name</th>
 			<th scope="col">Operasjonstid (sekunder)</th>
 			<th scope="col">Syklustid (sekunder)</th>
-            </tr>
+			<th scope="col">Køtid Evert2 (sekunder)</th>
+		</tr>
 		</thead>
 		<tbody>
 		@foreach (SkapVegg skapVegg1 in Model.Skap)
 		{
 			<tr class="table-default">
 				<td>
-                                					
+
 				</td>
 				<td style="text-align: center">
 					@skapVegg1.Id
 				</td>
 				<td style="text-align: left">
-					@skapVegg1.Name
+					@skapVegg1.Description
 				</td>
 				<td style="text-align: right">
 					@skapVegg1.OpTimeEvert2
@@ -77,169 +116,45 @@
 		}
 		</tbody>
 	</table>
+	
+	<table class="table table-bordered table-hover" style="width:100%">
+    		<thead>
+            		<tr>
+                          <th scope="col">Pressa</th>
+                          <th scope="col">Product ID</th>
+                          <th scope="col">Name</th>
+            			<th scope="col">Operasjonstid (sekunder)</th>
+	                    <th scope="col">Syklustid (sekunder)</th>
+	                    <th scope="col">Køtid Pressa (sekunder)</th>
+                    </tr>
+            		</thead>
+    		<tbody>
+    		@foreach (SkapVegg skapVegg in Model.Skap)
+    		{
+    			<tr class="table-default">
+    				<td>
+                    					
+    				</td>
+    				<td style="text-align: center">
+    					@skapVegg.Id
+    				</td>
+    				<td style="text-align: left">
+    					@skapVegg.Description
+    				</td>
+    				<td style="text-align: right">
+    					@skapVegg.OpTimeEvert3
+    				</td>
+				    <td style="text-align: right">
+					    @skapVegg.CyTimeEvert3
+				    </td>
+			    </tr>
+    		}
+    		</tbody>
+    	</table>
 </container>
 <br/>
 
-<script>
-//Endret chart design til et dobbelt column-chart. 
-window.onload = function () {
 
-var chart = new CanvasJS.Chart("chartContainer", {
-	exportEnabled: true,
-	animationEnabled: true,
-	title:{
-		text: "Køtid - OrderID SO2208149"
-	},
-	subtitles: [{
-		text: "Viser køtid på Evert 1 og Evert 2"
-	}], 
-	axisX: {
-		title: "ProductionID"
-	},
-	axisY: {
-		title: "Evert 1 køtid (sekunder)",
-		titleFontColor: "#4F81BC",
-		lineColor: "#4F81BC",
-		labelFontColor: "#4F81BC",
-		tickColor: "#4F81BC",
-		includeZero: true
-	},
-	axisY2: {
-		title: "Evert 2 køtid (sekunder)",
-		titleFontColor: "#C0504E",
-		lineColor: "#C0504E",
-		labelFontColor: "#C0504E",
-		tickColor: "#C0504E",
-		includeZero: true
-	},
-	toolTip: {
-		shared: true
-	},
-	legend: {
-		cursor: "pointer",
-		itemclick: toggleDataSeries
-	},
-	data: [{
-		type: "column",
-		name: "Evert 1",
-		showInLegend: true,      
-		yValueFormatString: "#,##0.# sekunder",
-		dataPoints: [
-			{ label: "8333",  y: 1 },
-			{ label: "8332", y: 1 },
-			{ label: "8331", y: 1 },
-			{ label: "8330",  y: 1 },
-			{ label: "8329",  y: 2 },
-			{ label: "8328",  y: 17 },
-			{ label: "8327",  y: 22 }
-		]
-	},
-	{
-		type: "column",
-		name: "Evert 2",
-		axisYType: "secondary",
-		showInLegend: true,
-		yValueFormatString: "#,##0.# sekunder",
-		dataPoints: [
-			{ label: "8333",  y: 2 },
-            { label: "8332", y: 1 },
-            { label: "8331", y: 1 },
-            { label: "8330",  y: 2 },
-            { label: "8329",  y: 1 },
-            { label: "8328",  y: 55 },
-            { label: "8327",  y: 1 }
-		]
-	}]
-});
-chart.render();
-
-function toggleDataSeries(e) {
-	if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-		e.dataSeries.visible = false;
-	} else {
-		e.dataSeries.visible = true;
-	}
-	e.chart.render();
-}
-
-}
-</script>
-
-<body>
-<div id="chartContainer" style="height: 300px; width: 100%;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</body>
-
-<!---- Her ligger de to gamle line chart'sene 
-
-<div id="chartContainer1"></div>
-<br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/><br/><br/>
-<br/><br/><br/><br/>
-<div id="chartContainer2"></div>
-	
-
-<script type="text/javascript">
-window.onload = function () {
-	var chart1 = new CanvasJS.Chart("chartContainer1", {
-		axisX: {
-			labelMaxWidth: 50,
-			labelWrap: false, 
-			interval: 1,
-			prefix: "Skap "
-		},
-		title: {
-			text: "Evert 1"
-		},
-		data: [
-		{
-			type: "column",
-			dataPoints: [
-                { y: 82 },
-				{ y: 85 }, 
-				{ y: 85 },
-				{ y: 80 }, 
-				{ y: 63 }, 
-				{ y: 120 }, 
-				{ y: 49 }            
-			]
-		}
-		]
-	});
-
-	var chart2 = new CanvasJS.Chart("chartContainer2", {
-		
-		axisX: {
-			labelMaxWidth: 50,
-			labelWrap: false, 
-			interval: 1,
-			prefix: "Skap "
-		},
-		title: {
-			text: "Evert 2"
-		},
-		data: [
-		{
-			type: "line",
-			dataPoints: [
-                { y: 65 },
-				{ y: 89 }, 
-				{ y: 81 },
-				{ y: 89 }, 
-				{ y: 71 }, 
-				{ y: 82 }, 
-				{ y: 53 }            
-			]
-		}
-		]
-	});
-	chart1.render();
-	chart2.render();
-}
-</script>
---->
-
-<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <div id="chartContainer1" style="width: 45%; height: 300px;display: inline-block;"></div> 
 <div id="chartContainer2" style="width: 45%; height: 300px;display: inline-block;"></div><br/>
 

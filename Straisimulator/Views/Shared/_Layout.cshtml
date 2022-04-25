@@ -4,55 +4,49 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Straisimulator</title>
-    <link rel="stylesheet" href="~/css/bootswatchTheme.css"/>
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/Straisimulator.styles.css" asp-append-version="true"/>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    
+
+    <link rel="stylesheet" type="text/css" href="~/css/site.css" asp-append-version="true"/>
+
 </head>
 <body>
+
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">StraiSimulator</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <div class="collapse navbar-collapse" id="navbarColor03">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Hjem
-                <span class="visually-hidden">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Simulator">Simulator</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Resultater">Resultater</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="HentEventLog">Hent hendelseslogg</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+  <div class="Wrapper">
+    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+      <img src="../wwwroot/images/Strailogo_main.png" width="120" height="82" alt="">
+      </a>
+    <nav>
+      <ul>
+        <li><a asp-area="" asp-controller="Home" asp-action="Index">Hjem</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Simulator">Simulering</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Resultater">Resultater</a></li>
+      </ul>
     </nav>
+  </div>
 </header>
+
 <div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
+  <main role="main" class="pb-3">
+    @RenderBody()
+  </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2022 - StraiSimulator
+<footer>
+  <div class="wrapper">
+    <div id="footer-info">
+      <p>&copy; 2022 - StraiSimulator</p>
+    </div>
+    <div id="footer-links">
+      <ul>
+        <li><a href="#">Om Applikasjonen</a></li>
+      </ul>
+      </div>
+      <div class="clear"></div>
     </div>
 </footer>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script><script src="~/js/site.js" asp-append-version="true"></script>
+
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
