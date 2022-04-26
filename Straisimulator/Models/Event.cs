@@ -7,4 +7,6 @@ public class Event
     public string ExtraInfo { get; set; }
     public int ProductionId { get; set; }
     public List<TimeSpan> OpAndCykAsTimeSpan { get; set; }
+    public int EventType { get; set; }
+    public TimeSpan Que { get; set; }
 }

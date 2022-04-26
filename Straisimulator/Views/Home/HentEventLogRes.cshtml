@@ -3,29 +3,38 @@
     ViewData["Title"] = "Hent hendelseslogg";
 }
 
-<table>
+<table class="table table-bordered table-hover" style="width:100%">
+    <thead>
+        <tr>
+            <th scope="col">Production ID (skap)</th>
+            <th scope="col">Operasjonstid</th>
+            <th scope="col">Cykeltid</th>
+            <th scope="col">Køtid/Dødtid</th>
+            <th scope="col">Beskrivelse</th>
+        </tr>
+    </thead>
     <tbody>
-        @foreach(Event productionEvent in Model.ProductionEventList.ProductionEvents)
-        {
-            <tr>
-                <td>@productionEvent.Id</td>
-                <td> @productionEvent.TimeStamp</td>
-                <td> @productionEvent.OpAndCykAsTimeSpan.Count</td>
-                <td>
-                    @if(productionEvent.OpAndCykAsTimeSpan.Count != 0)
-                    {
-                        @productionEvent.OpAndCykAsTimeSpan[0]
-                    }
-                </td>
-                <td>
-                    @if(productionEvent.OpAndCykAsTimeSpan.Count != 0)
-                    {
-                        @productionEvent.OpAndCykAsTimeSpan[1]
-                    }
-                </td>
-                <br/>
-            </tr>
-        }
+    @foreach (Event productionEvent in Model.ProductionEventList.ProductionEvents)
+    {
+        <tr class="table-default">
+            <td style="text-align: center">@productionEvent.ProductionId</td>
+            <td style="text-align: center">
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[0]
+                }
+            </td>
+            <td style="text-align: center">
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[1]
+                }
+            </td>
+            <td style="text-align: center">productionEvent.Que</td>
+            <td style="text-align: center">production comment</td>
+            <br/>
+        </tr>
+    }
     </tbody>
 </table>
 

@@ -25,7 +25,6 @@ _UpgradeReport_Files/
 bin/
 obj/
 Straisimulator/obj/
-Straisimulator/bin/
 TestResults/
 ###################
 # Web publish log #

@@ -75,7 +75,7 @@ public class DataProcessService
         }
     }
 
-    public int calculateQueTime(DateTime skap1Started, DateTime skap2Started)
+    public int calculateQueTime(TimeSpan skap1Started, TimeSpan skap2Started)
     {
         TimeSpan que = skap2Started - skap1Started;
         int secondsOfQue = que.Seconds;
