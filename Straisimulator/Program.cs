@@ -24,13 +24,13 @@ builder.Services.AddRazorPages();
 
 
 var app = builder.Build();
-
+/*
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
         Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\images")),
     RequestPath = "/wwwroot/images"
-});
+});*/
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

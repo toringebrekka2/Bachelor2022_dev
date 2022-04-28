@@ -64,14 +64,14 @@ public class DataFetchService : IDataFetchService
         return productionDay;
     }
 
+    //SO2209158
     public ProductionEventList FetchProductionEvents(string orderId)
     {
-        //henter en join mellom Production og ProductionEventLog der Production har samme MESProductionDate som "prodDate"
+        //henter en join mellom ProductionEventLog, ProductionEventType og Production der Production har samme OrderNumber som "orderId"
         var productionEvents = ApplicationDbContext.ProductionEventLog
             .Include(p => p.ProductionEventType)
             .Include(p => p.Production)
-            .Where(p => p.Production.OrderNumber == orderId)
-            .OrderByDescending(p => p.TimeStamp);
+            .Where(p => p.Production.OrderNumber == orderId);
 
         List<Event> prodEvents = productionEvents.Select(p => new Event
             {
@@ -79,6 +79,7 @@ public class DataFetchService : IDataFetchService
                 TimeStamp = p.TimeStamp,
                 ExtraInfo = p.ExtraInfo,
                 ProductionId = p.ProductionId,
+                EventType = p.EventType
             })
             .ToList();
 
@@ -99,6 +100,13 @@ public class DataFetchService : IDataFetchService
             ev.OpAndCykAsTimeSpan = list;
         }
         
+        //legger til kø
+        /*
+        foreach (Event e in prodEvents)
+        {
+            e.Que = e.OpAndCykAsTimeSpan[0] - e.OpAndCykAsTimeSpan[1];
+        }*/
+
         ProductionEventList productionEventList = new ProductionEventList();
         productionEventList.ProductionEvents = prodEvents;
         return productionEventList;
