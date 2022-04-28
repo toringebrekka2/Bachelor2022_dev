@@ -43,9 +43,16 @@ public class HomeController : Controller
     public IActionResult HentEventLogRes(String orderId)
     {
         ProductionEventList productionEvents = _dataFetchService.FetchProductionEvents(orderId);
-        HentEventLogResViewModel model = new HentEventLogResViewModel();
-        model.ProductionEventList = productionEvents;
-        return View(model);
+        if (productionEvents.ProductionEvents.Count == 0)
+        {
+            throw new InvalidOperationException("There are no events in the list");
+        }
+        else
+        {
+            HentEventLogResViewModel model = new HentEventLogResViewModel();
+            model.ProductionEventList = productionEvents;
+            return View(model);
+        }
     }
 
     public IActionResult Resultater()
