@@ -14,6 +14,10 @@ public class ProductionEventLog
     [ForeignKey(nameof(ProductionId))]
     public Production Production { get; set; }
 
+    public int ProductionType { get; set; }
+    [ForeignKey(nameof(ProductionType))]
+    public ProductionTypes ProductionTypes { get; set; }
+
     public int EventType { get; set; }
     
     [ForeignKey(nameof(EventType))]

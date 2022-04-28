@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Straisimulator.Models;
 
 namespace Straisimulator.Services;
 
@@ -8,7 +9,41 @@ public class DataProcessService
     {
         
     }
-    
+
+    //denne er kun laget fordi jeg enda ikke har fått til å nå de andre attributtene til ProductionType (Description)
+    public void addMachine(List<Event> events)
+    {
+        foreach (Event ev in events)
+        {
+            if (ev.ProductionType == 0)
+            {
+                ev.Maskin = "Undefined";
+            }
+            else if (ev.ProductionType == 110)
+            {
+                ev.Maskin = "Other";
+            }
+            else if (ev.ProductionType == 320)
+            {
+                ev.Maskin = "Drilling";
+            }
+            else if (ev.ProductionType == 330)
+            {
+                ev.Maskin = "Fitting 1";
+            }
+            else if (ev.ProductionType == 350)
+            {
+                ev.Maskin = "Fitting 2";
+            }
+            else if (ev.ProductionType == 360)
+            {
+                ev.Maskin = "Assembly";
+            }
+        }
+    }
+
+    //RETTET: det som er feil nå: i extrainfo på drilling står det "Tid" og "cykeltid" - cykeltida kommer ut riktig,
+    //men Tid er ikke op-tid
     public List<TimeSpan> getOpAndCykTime(string inputText)
     {
         string pattern = @"tid: ((?<operasjonstid>(\d{2}:\d{2})|\d+)s?).+tid: (?<cykeltid>\d{2}:\d{2}|\d+?.?\d+?)s?";

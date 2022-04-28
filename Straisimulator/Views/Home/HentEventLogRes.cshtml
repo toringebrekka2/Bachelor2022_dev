@@ -6,7 +6,10 @@
 <table class="table table-bordered table-hover" style="width:100%">
     <thead>
         <tr>
+            <th scope="col">Event ID</th>
             <th scope="col">Production ID (skap)</th>
+            <th scope="col">Hendelsestype</th>
+            <th scope="col">Maskin</th>
             <th scope="col">Operasjonstid</th>
             <th scope="col">Cykeltid</th>
             <th scope="col">Køtid/Dødtid</th>
@@ -17,7 +20,10 @@
     @foreach (Event productionEvent in Model.ProductionEventList.ProductionEvents)
     {
         <tr class="table-default">
+            <td style="text-align: center">@productionEvent.Id</td>
             <td style="text-align: center">@productionEvent.ProductionId</td>
+            <td style="text-align: center">@productionEvent.EventType</td>
+            <td style="text-align: center">@productionEvent.Maskin</td>
             <td style="text-align: center">
                 @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
                 {
@@ -30,7 +36,7 @@
                     @productionEvent.OpAndCykAsTimeSpan[1]
                 }
             </td>
-            <td style="text-align: center">productionEvent.Que</td>
+            <td style="text-align: center">@productionEvent.Que</td>
             <td style="text-align: center">production comment</td>
             <br/>
         </tr>

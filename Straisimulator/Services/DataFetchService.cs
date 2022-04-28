@@ -69,9 +69,10 @@ public class DataFetchService : IDataFetchService
     {
         //henter en join mellom ProductionEventLog, ProductionEventType og Production der Production har samme OrderNumber som "orderId"
         var productionEvents = ApplicationDbContext.ProductionEventLog
-            .Include(p => p.ProductionEventType)
+            .Include(p => p.ProductionTypes)
             .Include(p => p.Production)
-            .Where(p => p.Production.OrderNumber == orderId);
+            .Where(p => p.Production.OrderNumber == orderId)
+            .OrderBy(p => p.ProductionId);
 
         List<Event> prodEvents = productionEvents.Select(p => new Event
             {
@@ -79,11 +80,13 @@ public class DataFetchService : IDataFetchService
                 TimeStamp = p.TimeStamp,
                 ExtraInfo = p.ExtraInfo,
                 ProductionId = p.ProductionId,
+                ProductionType = p.ProductionType,
                 EventType = p.EventType
             })
             .ToList();
 
         //fjerner Event objekter i prodEvents der ExtraInfo er tom
+        //TROR IKKE DENNE FUNKER
         for (int i = 0; i < prodEvents.Count; i++)
         {
             if (prodEvents[i].ExtraInfo == String.Empty)
@@ -97,28 +100,48 @@ public class DataFetchService : IDataFetchService
         foreach (Event ev in prodEvents)
         {
             List<TimeSpan> list = dataProcessService.getOpAndCykTime(ev.ExtraInfo);
+            
+            //fikser feilen med at borring kun gir cykeltid:
+            if (list.Count != 0)
+            {
+                if (ev.ProductionType == 320)
+                {
+                    list[0] = new TimeSpan(0, 0, 0, 0);
+                }
+            }
             ev.OpAndCykAsTimeSpan = list;
         }
         
+        dataProcessService.addMachine(prodEvents);
+        
         //legger til kø
-        /*
         foreach (Event e in prodEvents)
         {
-            e.Que = e.OpAndCykAsTimeSpan[0] - e.OpAndCykAsTimeSpan[1];
-        }*/
+            if (e.OpAndCykAsTimeSpan.Count != 0)
+            {
+                //hvis op-tid er lik 0, sett kø til 0, istedenfor det samme som cykeltid (cykeltid-0)
+                if (TimeSpan.Compare(e.OpAndCykAsTimeSpan[0], new TimeSpan(0, 0, 0, 0)) == 0)
+                {
+                    e.Que = new TimeSpan(0, 0, 0, 0);
+                }
+                else
+                {
+                    //hvis op-tid er større enn cyk-tid - 0s kø
+                    if (TimeSpan.Compare(e.OpAndCykAsTimeSpan[0], e.OpAndCykAsTimeSpan[1]) == 1)
+                    {
+                        e.Que = new TimeSpan(0,0,0,0);
+                    }
+                    else
+                    {
+                        TimeSpan ts = e.OpAndCykAsTimeSpan[1].Subtract(e.OpAndCykAsTimeSpan[0]);
+                        e.Que = ts;
+                    } 
+                }
+            }
+        }
 
         ProductionEventList productionEventList = new ProductionEventList();
         productionEventList.ProductionEvents = prodEvents;
         return productionEventList;
     }
-
-    //henter hele productionEventTypes tabellen, men tar kun med EventType (som er id):
-    /*var productionEventTypes = ApplicationDbContext.ProductionEventTypes
-
-    /*List<ProductionEventTypes> eventTypes = productionEventTypes.Select(e => new ProductionEventTypes
-        {
-            EventType = e.EventType,
-            DescriptionE = e.DescriptionE,
-        })
-        .ToList();*/
 }
