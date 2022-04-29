@@ -20,7 +20,7 @@ public class HomeController : Controller
         _logger = logger;
         _dataFetchService = dataFetchService;
     }
-    
+
     public IActionResult Index()
     {
         return View();
