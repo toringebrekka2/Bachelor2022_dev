@@ -4,7 +4,6 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Straisimulator</title>
-
     <link rel="stylesheet" type="text/css" href="~/css/site.css" asp-append-version="true"/>
 
 </head>
@@ -14,16 +13,15 @@
   <div class="Wrapper">
     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
       <img src="../wwwroot/images/Strailogo_main.png" width="120" height="82" alt="">
-      </a>
-    <nav>
-      <ul>
-        <li><a asp-area="" asp-controller="Home" asp-action="About">Hjem</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="Simulator">Simulering</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="Resultater">Resultater</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="HentEventLog">Hent køtid på ordre</a></li>
-      </ul>
-    </nav>
-  </div>
+    </a>
+    <div class ="navbar" id="myNavbar">
+      <a class="active" asp-area="" asp-controller="Home" asp-action="Index">Hjem</a>
+      <a asp-area="" asp-controller="Home" asp-action="Simulator">Simulering</a>
+      <a asp-area="" asp-controller="Home" asp-action="Resultater">Resultater</a>
+      <a asp-area="" asp-controller="Home" asp-action="HentEventLog">Hent køtid på ordre</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+    </div>
+</div>
 </header>
 
 <div class="container">
@@ -37,16 +35,26 @@
 <footer>
 	<div class="footerLinks">
 		<ul>
-			
-  			<li><a asp-area="" asp-controller="Home" asp-action="About"><strong>Om applikasjonen</strong></a></li>
+      <li><a asp-area="" asp-controller="Home" asp-action="About"><strong>Om applikasjonen</strong></a></li>
 		</ul>
 	</div>
 	<div class="copyright">
-		<p>&copy; 2022 - StraiSimulator</p>
+    <ul>&copy; 2022 - StraiSimulator</ul>
     </div>
 </footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myNavbar");
+  if (x.className === "navbar") {
+    x.className += " responsive";
+  } else {
+    x.className = "navbar";
+  }
+}
+</script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </body>
