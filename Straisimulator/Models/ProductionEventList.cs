@@ -5,4 +5,5 @@ namespace Straisimulator.Models;
 public class ProductionEventList
 {
     public List<Event> ProductionEvents { get; set; }
+    public TimeSpan TotalOrderQue { get; set; }
 }

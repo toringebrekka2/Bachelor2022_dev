@@ -126,7 +126,7 @@ public class DataFetchService : IDataFetchService
                 }
                 else
                 {
-                    //hvis op-tid er større enn cyk-tid - 0s kø
+                    //hvis op-tid er større enn cyk-tid: 0s kø
                     if (TimeSpan.Compare(e.OpAndCykAsTimeSpan[0], e.OpAndCykAsTimeSpan[1]) == 1)
                     {
                         e.Que = new TimeSpan(0,0,0,0);
@@ -142,6 +142,19 @@ public class DataFetchService : IDataFetchService
 
         ProductionEventList productionEventList = new ProductionEventList();
         productionEventList.ProductionEvents = prodEvents;
+        
+        //legger en verdi i productionEventList.TotalOrderQue (samlet kø for hele ordren):
+        if (productionEventList.ProductionEvents.Count != 0)
+        {
+            productionEventList.TotalOrderQue = productionEventList.ProductionEvents[0].Que;
+            for (int i = 1; i < productionEventList.ProductionEvents.Count; i++)
+            {
+                TimeSpan ts = new TimeSpan();
+                ts = productionEventList.TotalOrderQue.Add(productionEventList.ProductionEvents[i].Que);
+                productionEventList.TotalOrderQue = ts;
+            }
+        }
+
         return productionEventList;
     }
 }
