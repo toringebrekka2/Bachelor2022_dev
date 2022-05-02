@@ -7,11 +7,213 @@ body {
   overflow:auto;
   font: normal 15px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
+
+/* HentEventLog */
+
+.container-eventlog {
+  width: 100%;
+  min-height: 100vh;
+  padding: 5%;
+  background-image: linear-gradient(rgba(230, 230, 232, 0.71),rgba(189, 195, 199, 0.9)), url(../wwwroot/images/stra_produksjon.png);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchbar {
+  width: 100%;
+  max-width: 350px;
+  background: rgba(255, 255, 255, 0.50);
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  padding: 10px 20px;
+  margin-bottom: 250px;
+  backdrop-filter: blur(4px) saturate(120%);
+  box-shadow: 0 0 20px rgba(0,0,0,0.25);
+}
+
+.searchbar input {
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 24px 20px;
+  font-size: 20px;
+  color: #444;
+}
+::placeholder {
+  color: #444;
+}
+.searchbar button img{
+  width: 25px;
+}
+.searchbar button{
+  border: 0;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background: rgba(104, 138, 168, 0.8);
+  cursor: pointer;
+}
+
+/* HentEventLogRes */
+
+.searchbar-2 {
+  width: 220px;
+  max-width: 220px;
+  background: rgba(255, 255, 255, 0.50);
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  padding: 2px 3px;
+  margin-right: 50px;
+  margin-top: 25px;
+  backdrop-filter: blur(4px) saturate(120%);
+  box-shadow: 0 0 20px rgba(0,0,0,0.25);
+}
+
+.searchbar-2 input {
+  width: 100px;
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 10px 25px 10px 15px;
+  font-size: 14px;
+  color: #444;
+}
+::placeholder {
+  color: #444;
+}
+.searchbar-2 button img{
+  width: 15px;
+}
+.searchbar-2 button{
+  border: 0;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background: rgba(104, 138, 168, 0.8);
+  cursor: pointer;
+}
+
+.container-eventlogRes h4 {
+  color: #444;
+  letter-spacing: 1px;
+}
+
+.container-eventlogRes {
+  width: 100%;
+  min-height: 100vh;
+  padding: 5%;
+  background-image: linear-gradient(rgba(230, 230, 232, 0.71),rgba(189, 195, 199, 0.9));
+  background-position: center;
+  background-size: cover;
+}
+
+.excel {
+  background: #1f9a5f;
+  cursor: pointer;
+  display: block;
+  height: 38px;
+  width: 220px;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 25px;
+}
+
+.excel:hover {
+  background: #0f753e;
+}
+
+/* table */
+
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  padding: 12px 15px;
+  
+}
+
+.content-table thead tr {
+  background-color: #688AA8;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+
+.content-table th, .content-table tr, .content-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr {
+  background-color: #ffffff;
+}
+
+.content-table tbody tr:nth-of-type(even){
+  background-color: #dde5ef;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid#688AA8;
+}
+
+.content-table tbody tr.active {
+  font-weight: bold;
+  color: #688AA8;
+}
+
+.quetime-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 15px;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  padding: 12px 15px;
+}
+
+.quetime-table td{
+  background-color: #688AA8;
+  color: #fff;
+  text-align: left;
+  font-weight: bold;
+  padding: 20px 18px;
+}
+
+.quetime-table #td-que {
+  text-align: right;
+}
+
+/* General */
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
 p {
   font-size: 16px;
   line-height: 20px;
   margin-bottom: 20px;
-  padding: 0;
+  padding-left: 15px;
   inline-size: 80%;
   overflow-wrap: break-word;
   word-break: break-word;
@@ -22,16 +224,18 @@ h1 {
   color: #444;
   font-size: 45px;
   margin-bottom: 20px;
+  padding-left: 15px;
 }
 h2 {
   font-weight: 300;
   color: #444;
-  text-shadow: 0 0 white, 1px 0 white, 1px 0 white, 0 0 white;
+  text-shadow: 0 0 white, 0.5px 0 white, 0 0 white, 0 0 white;
   font-size: 26px;
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 20px;
   letter-spacing: 2px;
+  padding-left: 15px;
 }
 h3 {
   font-size: 30px;
@@ -40,6 +244,7 @@ h3 {
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 20px;
+  padding-left: 15px;
 }
 h4 {
   font-size: 20px;
@@ -53,10 +258,12 @@ h5 {
   color: #444;
   font-weight: bold;
   text-transform: uppercase;
+  padding-left: 15px;
 }
 a {
   text-decoration: none;
   color: #444;
+  padding-left: 10px;
 }
 a:hover {
   color: #444;
@@ -64,7 +271,6 @@ a:hover {
   transition: all 0.2s;
   padding-right: 0;
 }
-
 strong {
   font-weight: bold;
 }
@@ -97,7 +303,6 @@ header h1 .color {
   overflow: hidden;
   padding-left: 10px;
 }
-
 .navbar a {
   float: left;
   display: block;
@@ -113,12 +318,6 @@ header h1 .color {
 .active {
   color: white;
 }
-.navbar a:hover {
-  color: #688AA8;
-}
-.navbar a:active {
-  color: #688AA8;
-}
 .navbar-brand {
   float: left;
   margin: 0 auto;
@@ -126,12 +325,10 @@ header h1 .color {
 .navbar .icon {
   display: none;
 }
-
 .navbar a:hover {
-  background-color: #444;
-  color: white;
+  border-top: 1px solid #dddddd;
+  transition: all 25ms;
 }
-
 @media screen and (max-width: 700px) {
   .navbar a  {
     display: none;
@@ -141,7 +338,6 @@ header h1 .color {
     display: block;
   }
 }
-
 @media screen and (max-width: 700px) {
   .navbar.responsive {position: relative;}
   .navbar.responsive a.icon {
@@ -233,7 +429,7 @@ footer {
   position: relative;
   width: 100%;
   left: 0;
-  padding-top: 50px;
+  padding-top: 25px;
   bottom: 0;
   background: #fff;
 }
