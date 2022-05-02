@@ -147,7 +147,7 @@ header h1 .color {
   .navbar.responsive a.icon {
     position: absolute;
     right: 10px;
-    top: -45px;
+    top: -40px;
   }
   .navbar.responsive a {
     float: none;
@@ -254,11 +254,10 @@ footer {
 }
 .copyright {
   text-align: center;
-  padding-left: 120px;
 }
 
-.copyright p {
-  margin: 0;
+.copyright ul {
+  padding-right: 38px;
   color: #b3b3b3;
   font-size: 11px;
 }
