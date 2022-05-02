@@ -2,8 +2,8 @@ body {
   background-color: #fff;
   color: #777;
   position:relative;
-  margin:0;
   padding:0;
+  margin:0;
   overflow:auto;
   font: normal 15px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
@@ -11,6 +11,10 @@ p {
   font-size: 16px;
   line-height: 20px;
   margin-bottom: 20px;
+  padding: 0;
+  inline-size: 80%;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 h1 {
   font-family: 'Crete Round', serif;
@@ -72,20 +76,10 @@ small {
 .clear {
   clear: both;
 }
-.wrapper {
-  margin: 0 auto;
-  padding: 10px 10px;
-  width: 940px;
-}
-
 header {
-  top: 0;
-  margin: 0 auto;
-  height: 100px;
-  width: 100%;
-  position:fixed;
+  padding-bottom: 5px;
+  margin: 0;
   background-color: #fff;
-  max-height: 9% !important;
   border-bottom: 1px solid #BABCBF;
 }
 header h1 {
@@ -95,39 +89,81 @@ header h1 {
 header h1 .color {
   color: #2F6D8C;
 }
-header nav {
-  float: right;
+
+ /* Navigation bar */
+
+.navbar {
+  background-color: #fff;
+  overflow: hidden;
+  padding-left: 10px;
 }
-header nav ul li {
+
+.navbar a {
   float: left;
-  display: inline-block;
-  margin-right: auto;
-  margin-top: 47px;
-}
-header nav ul li a {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  font-size: 15px;
   color: #444;
   text-transform: uppercase;
   font-weight: bold;
-  display: block;
-  padding-right: 25px;
-  float: left;
+  margin-top: 35px;
+  padding: 14px;
 }
-
-header nav ul li a:hover {
-  color: #252323;
-  padding-right: 25px;
+.active {
+  color: white;
 }
-
-header nav ul li a:active {
-  color: #4390cd;
-  padding-right: 25px;
+.navbar a:hover {
+  color: #688AA8;
 }
-
+.navbar a:active {
+  color: #688AA8;
+}
 .navbar-brand {
   float: left;
-  padding-top: 0;
   margin: 0 auto;
 }
+.navbar .icon {
+  display: none;
+}
+
+.navbar a:hover {
+  background-color: #444;
+  color: white;
+}
+
+@media screen and (max-width: 700px) {
+  .navbar a  {
+    display: none;
+  }
+  .navbar a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .navbar.responsive {position: relative;}
+  .navbar.responsive a.icon {
+    position: absolute;
+    right: 10px;
+    top: -45px;
+  }
+  .navbar.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .navbar.responsive  {float: none;}
+  .navbar.responsive  {position: relative;}
+  .navbar.responsive  {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Index */
 
 #hero-image {
   margin: 0 auto;
@@ -164,6 +200,9 @@ header nav ul li a:active {
   align-items: center;
   justify-content: center;
 }
+
+/* Knapper index */
+
 #animated-word {
   margin-top: 50px;
   margin-bottom: 50px;
@@ -179,19 +218,22 @@ header nav ul li a:active {
   outline: 1px solid;
   outline-color: #465460;
   outline-offset: 40px;
-  transition: all 600ms cubic-bezier(0.2, 0, 0, 0.8);
+  transition: all 300ms cubic-bezier(0.2, 0, 0, 0.8);
 }
 
 #animated-word:hover {
   color: #688AA8;
   outline-color: rgba(71, 126, 232, 0);
-  outline-offset: 300px;
+  outline-offset: 35px;
 }
+
+/* Footer */
 
 footer {
   position: relative;
   width: 100%;
   left: 0;
+  padding-top: 50px;
   bottom: 0;
   background: #fff;
 }
@@ -204,9 +246,7 @@ footer {
   list-style-type: none;
   margin: 0;
 }
-.footerLinks li {
-  display: inline;
-}
+
 .footerLinks a {
   color: #444;
   text-decoration: none;
@@ -214,144 +254,11 @@ footer {
 }
 .copyright {
   text-align: center;
+  padding-left: 120px;
 }
 
 .copyright p {
   margin: 0;
   color: #b3b3b3;
   font-size: 11px;
-}
-
-/* Login css */
-
-body--login {
-  --color-primary: #009579;
-  --color-primary-dark: #007f67;
-  --color-secondary: #252c6a;
-  --color-error: #cc3333;
-  --color-success: #4bb544;
-  --border-radius: 4px;
-
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  background: black;
-  background-size: cover;
-}
-
-.container--login {
-  width: 400px;
-  max-width: 400px;
-  margin: 1rem;
-  padding: 2rem;
-  align-items: center;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  background: #ffffff;
-}
-
-.container--login,
-.form__input,
-.form__button {
-  font: 500 1rem 'Quicksand', sans-serif;
-}
-
-.form--hidden {
-  display: none;
-}
-
-.form > *:first-child {
-  margin-top: 0;
-}
-
-.form > *:last-child {
-  margin-bottom: 0;
-}
-
-.form__title {
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.form__message {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.form__message--success {
-  color: red;
-}
-
-.form__message--error {
-  color: #444;
-}
-
-.form__input-group {
-  margin-bottom: 1rem;
-}
-
-.form__input {
-  display: block;
-  width: 100%;
-  padding: 0.75rem;
-  box-sizing: border-box;
-  border-radius: 2px;
-  border: 1px solid #dddddd;
-  outline: none;
-  background: #eeeeee;
-  transition: background 0.2s, border-color 0.2s;
-}
-
-.form__input:focus {
-  border-color: #444;
-  background: #ffffff;
-}
-
-.form__input--error {
-  color: #444;
-  border-color: #444;
-}
-
-.form__input-error-message {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  color: #444;
-}
-
-.form__button {
-  width: 100%;
-  padding: 1rem 2rem;
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: #ffffff;
-  border: none;
-  border-radius: 2px;
-  outline: none;
-  cursor: pointer;
-  background: #444;
-}
-
-.form__button:hover {
-  background: red;
-}
-
-.form__button:active {
-  transform: scale(0.98);
-}
-
-.form__text {
-  text-align: center;
-}
-
-.form__link {
-  color: #444;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.form__link:hover {
-  text-decoration: underline;
 }
