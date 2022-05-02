@@ -1,9 +1,9 @@
 @model Straisimulator.ViewModels.HentEventLogResViewModel
 @{
-    ViewData["Title"] = "Hent hendelseslogg";
+    ViewData["Title"] = "Hent kø-tid";
 }
 
-<table class="table table-bordered table-hover" style="width:100%">
+<table class="table table-striped" style="width: 100%">
     <thead>
         <tr>
             <th scope="col">Event ID</th>
@@ -17,30 +17,31 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (Event productionEvent in Model.ProductionEventList.ProductionEvents)
-    {
-        <tr class="table-default">
-            <td style="text-align: center">@productionEvent.Id</td>
-            <td style="text-align: center">@productionEvent.ProductionId</td>
-            <td style="text-align: center">@productionEvent.EventType</td>
-            <td style="text-align: center">@productionEvent.Maskin</td>
-            <td style="text-align: center">
-                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
-                {
-                    @productionEvent.OpAndCykAsTimeSpan[0]
-                }
-            </td>
-            <td style="text-align: center">
-                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
-                {
-                    @productionEvent.OpAndCykAsTimeSpan[1]
-                }
-            </td>
-            <td style="text-align: center">@productionEvent.Que</td>
-            <td style="text-align: center">production comment</td>
-            <br/>
-        </tr>
-    }
+        @foreach (Event productionEvent in Model.ProductionEventList.ProductionEvents)
+        {
+            <tr class="table-default">
+                <td style="text-align: center">@productionEvent.Id</td>
+                <td style="text-align: center">@productionEvent.ProductionId</td>
+                <td style="text-align: center">@productionEvent.EventType</td>
+                <td style="text-align: center">@productionEvent.Maskin</td>
+                <td style="text-align: center">
+                    @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                    {
+                        @productionEvent.OpAndCykAsTimeSpan[0]
+                    }
+                </td>
+                <td style="text-align: center">
+                    @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                    {
+                        @productionEvent.OpAndCykAsTimeSpan[1]
+                    }
+                </td>
+                <td style="text-align: center">@productionEvent.Que</td>
+                <td style="text-align: center">production comment</td>
+                <br/>
+            </tr>
+        }
+        <tr class="table-default">Samlet køtid/døtid for ordre: @Model.ProductionEventList.TotalOrderQue</tr>
     </tbody>
 </table>
 

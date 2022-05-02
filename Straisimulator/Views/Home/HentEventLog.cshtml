@@ -1,10 +1,10 @@
 @model Straisimulator.ViewModels.IndexViewModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Hent kø-tid";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Hendelseslogg for ordre</h1>
+    <h1 class="display-4">Hent kø-tid for ordre</h1>
     <form asp-controller="Home" asp-action="HentEventLogRes" method="post">
         <label>Skriv inn et ordrenr:</label><br/>
         <input type="text" name="OrderId" value="A12345678" required/><br/>
