@@ -1,7 +1,8 @@
 ﻿body{
     color:#6a6f8c;
     background: #e8eced;
-    font:600 16px/18px 'Open Sans',sans-serif;
+    font:600 16px/18px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+
 }
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
