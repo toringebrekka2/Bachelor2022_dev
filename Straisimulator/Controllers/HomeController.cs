@@ -48,6 +48,7 @@ public class HomeController : Controller
         {
             HentEventLogResViewModel model = new HentEventLogResViewModel();
             model.ProductionEventList = productionEvents;
+            model.ProductionEventList.OrderId = orderId;
             return View(model);
         }
     }

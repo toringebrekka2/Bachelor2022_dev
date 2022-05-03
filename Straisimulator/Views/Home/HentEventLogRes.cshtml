@@ -5,8 +5,6 @@
 
 <!--- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --->
 
-
-
 <script src="~/js/FileSaver.js"></script>
 <script>
     function fnExcelReport(id, name) {
@@ -35,7 +33,7 @@
 
 
 <div class="container-eventlogRes">
-    <h4>Køtid i ordre *ordrenr*</h4>
+    <h4>Køtid i ordre @Model.ProductionEventList.OrderId</h4>
     
     <div class="flex">
         <form class="searchbar-2" asp-controller="Home" asp-action="HentEventLogRes" method="post">
@@ -43,18 +41,237 @@
             <button type="submit"><img src="../wwwroot/images/search.png"> </button>
         </form>
         
-        <button type="button" class="excel" onclick="fnExcelReport('dataTable', 'data')">Last ned som Excel fil</button>
+
+        <button type="button" class="excel" onclick="fnExcelReport('dataTable1', 'data')">Last ned som Excel fil</button>
     </div>
 
-    <table class="quetime-table">
-        <thead></thead>
+<table class="content-table">
+        <thead>
         <tr>
-            <td>Samlet køtid for ordre:</td>
-            <td id="td-que">@Model.ProductionEventList.TotalOrderQue</td>
+            <th>Maskin</th>
+            <th>Samlet cykeltid</th>
+            <th>Samlet dødtid</th>
+        </tr>
+        </thead>
+        <tr>
+            <td>Brema</td>
+            <td>...</td>
+            <td>@Model.ProductionEventList.TotalDrillingQue</td>
+        </tr>
+        <tr>
+            <td>Evert 1</td>
+            <td>...</td>
+            <td>@Model.ProductionEventList.TotalFitting1Que</td>
+        </tr>
+        <tr>
+            <td>Evert 2</td>
+            <td>...</td>
+            <td>@Model.ProductionEventList.TotalFitting2Que</td>
+        </tr>
+        <tr>
+            <td>Pressa</td>
+            <td>...</td>
+            <td>@Model.ProductionEventList.TotalAssemblyQue</td>
+        </tr>
+        <tr>
+            <td><strong>Total dødtid:</strong></td>
+            <td></td>
+            <td><strong>@Model.ProductionEventList.TotalOrderQue</strong></td>
         </tr>
     </table>
     
-    <table class="content-table" id="dataTable">
+    <br/><h4>Hendelser m/dødtid i ordren (alle maskiner):</h4>
+    <table class="content-table" id="dataTable1">
+    <thead>
+    <tr>
+        <th>Event ID</th>
+        <th>Production ID (skap)</th>
+        <th>Hendelsestype</th>
+        <th>Maskin</th>
+        <th>Operasjonstid</th>
+        <th>Cykeltid</th>
+        <th>Køtid/Dødtid</th>
+        <th>Beskrivelse</th>
+    </tr>
+    </thead>
+    @foreach (Event productionEvent in Model.ProductionEventList.ProductionEvents)
+    {
+        <tr>
+            <td>@productionEvent.Id</td>
+            <td>@productionEvent.ProductionId</td>
+            <td>@productionEvent.EventType</td>
+            <td>@productionEvent.Maskin</td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[0]
+                }
+            </td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[1]
+                }
+            </td>
+            <td>@productionEvent.Que</td>
+            <td>production comment</td>
+        </tr>
+    }
+</table>
+<br/><h4>Dødtid i Brema (borring): @Model.ProductionEventList.TotalDrillingQue</h4>
+    <table class="content-table" id="dataTable2">
+    <thead>
+        <tr>
+            <th>Event ID</th>
+            <th>Production ID (skap)</th>
+            <th>Hendelsestype</th>
+            <th>Maskin</th>
+            <th>Operasjonstid</th>
+            <th>Cykeltid</th>
+            <th>Køtid/Dødtid</th>
+            <th>Beskrivelse</th>
+        </tr>
+    </thead>
+    @foreach (Event productionEvent in Model.ProductionEventList.DrillingEvents)
+    {
+        <tr>
+            <td>@productionEvent.Id</td>
+            <td>@productionEvent.ProductionId</td>
+            <td>@productionEvent.EventType</td>
+            <td>@productionEvent.Maskin</td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[0]
+                }
+            </td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[1]
+                }
+            </td>
+            <td>@productionEvent.Que</td>
+            <td>production comment</td>
+        </tr>
+    }
+</table>
+    <br/><h4>Dødtid i Evert del 1: @Model.ProductionEventList.TotalFitting1Que</h4>
+    <table class="content-table" id="dataTable3">
+    <thead>
+        <tr>
+            <th>Event ID</th>
+            <th>Production ID (skap)</th>
+            <th>Hendelsestype</th>
+            <th>Maskin</th>
+            <th>Operasjonstid</th>
+            <th>Cykeltid</th>
+            <th>Køtid/Dødtid</th>
+            <th>Beskrivelse</th>
+        </tr>
+    </thead>
+    @foreach (Event productionEvent in Model.ProductionEventList.Fitting1Events)
+    {
+        <tr>
+            <td>@productionEvent.Id</td>
+            <td>@productionEvent.ProductionId</td>
+            <td>@productionEvent.EventType</td>
+            <td>@productionEvent.Maskin</td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[0]
+                }
+            </td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[1]
+                }
+            </td>
+            <td>@productionEvent.Que</td>
+            <td>production comment</td>
+        </tr>
+    }
+</table>
+    <br/><h4>Dødtid i Evert del 2:</h4>
+    <table class="content-table" id="dataTable4">
+    <thead>
+        <tr>
+            <th>Event ID</th>
+            <th>Production ID (skap)</th>
+            <th>Hendelsestype</th>
+            <th>Maskin</th>
+            <th>Operasjonstid</th>
+            <th>Cykeltid</th>
+            <th>Køtid/Dødtid</th>
+            <th>Beskrivelse</th>
+        </tr>
+    </thead>
+    @foreach (Event productionEvent in Model.ProductionEventList.Fitting2Events)
+    {
+        <tr>
+            <td>@productionEvent.Id</td>
+            <td>@productionEvent.ProductionId</td>
+            <td>@productionEvent.EventType</td>
+            <td>@productionEvent.Maskin</td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[0]
+                }
+            </td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[1]
+                }
+            </td>
+            <td>@productionEvent.Que</td>
+            <td>production comment</td>
+        </tr>
+    }
+</table>
+    <br/><h4>Dødtid i Pressa:</h4>
+    <table class="content-table" id="dataTable5">
+    <thead>
+        <tr>
+            <th>Event ID</th>
+            <th>Production ID (skap)</th>
+            <th>Hendelsestype</th>
+            <th>Maskin</th>
+            <th>Operasjonstid</th>
+            <th>Cykeltid</th>
+            <th>Køtid/Dødtid</th>
+            <th>Beskrivelse</th>
+        </tr>
+    </thead>
+    @foreach (Event productionEvent in Model.ProductionEventList.AssemblyEvents)
+    {
+        <tr>
+            <td>@productionEvent.Id</td>
+            <td>@productionEvent.ProductionId</td>
+            <td>@productionEvent.EventType</td>
+            <td>@productionEvent.Maskin</td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[0]
+                }
+            </td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[1]
+                }
+            </td>
+            <td>@productionEvent.Que</td>
+            <td>production comment</td>
+        </tr>
+    }
+</table>
+    <br/><h4>ProductionType other/undefined :</h4>
+    <table class="content-table" id="dataTable6">
         <thead>
         <tr>
             <th>Event ID</th>
@@ -67,7 +284,7 @@
             <th>Beskrivelse</th>
         </tr>
         </thead>
-        @foreach (Event productionEvent in Model.ProductionEventList.ProductionEvents)
+        @foreach (Event productionEvent in Model.ProductionEventList.OtherOrUndefinedEvents)
         {
             <tr>
                 <td>@productionEvent.Id</td>
