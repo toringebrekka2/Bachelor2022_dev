@@ -8,6 +8,7 @@ using Straisimulator.ViewModels;
 using System.Linq;
 using System.Collections.Generic;
 
+
 namespace Straisimulator.Controllers;
 
 public class HomeController : Controller
@@ -28,13 +29,9 @@ public class HomeController : Controller
 
     public IActionResult About()
     {
-        //DateTime prodDay = new DateTime(prodDay1, prodDay2, prodDay3);
-        //var productionDay = _dataFetchService.FetchProductionDay(prodDay);
-       // ResultViewModel model = new ResultViewModel();
-       // model.ProductionDay = productionDay; 
         return View();
     }
-    
+
     public IActionResult HentEventLog()
     {
         return View();
@@ -54,7 +51,6 @@ public class HomeController : Controller
             return View(model);
         }
     }
-
     public IActionResult Resultater()
     {
         
@@ -80,6 +76,11 @@ public class HomeController : Controller
 
         return View(model);
         
+    }
+    
+    public IActionResult Login()
+    {
+        return View();
     }
 
     public IActionResult Simulator()
