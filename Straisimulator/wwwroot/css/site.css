@@ -271,6 +271,7 @@ a:hover {
   transition: all 0.2s;
   padding-right: 0;
 }
+
 strong {
   font-weight: bold;
 }
@@ -457,3 +458,6 @@ footer {
   color: #b3b3b3;
   font-size: 11px;
 }
+
+/* Login */
+
