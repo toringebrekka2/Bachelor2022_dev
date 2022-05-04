@@ -2,13 +2,20 @@
 @{
     ViewData["Title"] = "Statistikk";
 }
-
+<div>
+  <form class="searchbar-2" asp-controller="Home" asp-action= "StatistikkRes" method="post" style="margin-left: 70px">
+    <input type="text" name="OrderId" placeholder="Søk på nytt ordrenr"required/><br/>
+    <button type="submit"><img src="../wwwroot/images/search.png"> </button>
+  </form>
+  <br/>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <body>
 
 <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
 <script>
+//Funksjon som konverterer en TimeStamp-string til en string med sekunder
 function convertDurationtoSeconds(duration){
     const [hours, minutes, seconds] = duration.split(':');
     return Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(seconds);
@@ -17,20 +24,26 @@ function convertDurationtoSeconds(duration){
 
 <script>
 
-
+// lager JavaScript variabler på de ulike modell-variablene
 var jsDrilling = '@Model.ProductionEventList.TotalDrillingQue';
 var jsFitting1 = '@Model.ProductionEventList.TotalFitting1Que';
 var jsFitting2 = '@Model.ProductionEventList.TotalFitting2Que';
 var jsAssembly = '@Model.ProductionEventList.TotalAssemblyQue';
+var jsTotalQueTime = '@Model.ProductionEventList.TotalOrderQue';
 
+//Setter variabler som mates inn i konverterings funksjonen.
+//Outputen av funksjonen blir satt til outDrilling, OutFitting osv. 
+const inDrilling = jsDrilling;
+const outDrilling = convertDurationtoSeconds(inDrilling);
+const inFitting1 = jsFitting1;
+const outFitting1 = convertDurationtoSeconds(inFitting1);
+const inFitting2 = jsFitting2;
+const outFitting2 = convertDurationtoSeconds(inFitting2);
+const inAssembly = jsAssembly;
+const outAssembly = convertDurationtoSeconds(inAssembly);
 
-const input = jsFitting1;
-const output = convertDurationtoSeconds(input);
-console.log(`${input} is ${output} in seconds`);
-
-
-var xValues =  [seconds, jsFitting1, seconds2, "USA", "Argentina"];
-var yValues = [50, 49, 44, 24, 15];
+var xValues = ["Drilling (sekunder)", "Fitting1 (sekunder)", "Fitting2 (sekunder)", "Assembly (sekunder)", "Total dødtid på ordren er: " + jsTotalQueTime]
+var yValues = [outDrilling, outFitting1, outFitting2, outAssembly, 0];
 var barColors = [
   "#b91d47",
   "#00aba9",
@@ -38,6 +51,7 @@ var barColors = [
   "#e8c3b9",
   "#1e7145"
 ];
+
 new Chart("myChart", {
   type: "pie",
   data: {
@@ -50,7 +64,7 @@ new Chart("myChart", {
   options: {
     title: {
       display: true,
-      text: "World Wide Wine Production 2018"
+      text: "Køtid på ordrenummer: @Model.ProductionEventList.OrderId"
     }
   }
 });
