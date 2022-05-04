@@ -9,7 +9,27 @@
 <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
 <script>
-var xValues =  ["Drilling", "France", "Spain", "USA", "Argentina"];
+function convertDurationtoSeconds(duration){
+    const [hours, minutes, seconds] = duration.split(':');
+    return Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(seconds);
+}
+</script>
+
+<script>
+
+
+var jsDrilling = '@Model.ProductionEventList.TotalDrillingQue';
+var jsFitting1 = '@Model.ProductionEventList.TotalFitting1Que';
+var jsFitting2 = '@Model.ProductionEventList.TotalFitting2Que';
+var jsAssembly = '@Model.ProductionEventList.TotalAssemblyQue';
+
+
+const input = jsFitting1;
+const output = convertDurationtoSeconds(input);
+console.log(`${input} is ${output} in seconds`);
+
+
+var xValues =  [seconds, jsFitting1, seconds2, "USA", "Argentina"];
 var yValues = [50, 49, 44, 24, 15];
 var barColors = [
   "#b91d47",
@@ -18,7 +38,6 @@ var barColors = [
   "#e8c3b9",
   "#1e7145"
 ];
-
 new Chart("myChart", {
   type: "pie",
   data: {
@@ -38,4 +57,3 @@ new Chart("myChart", {
 </script>
 
 </body>
-
