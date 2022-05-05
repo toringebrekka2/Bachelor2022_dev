@@ -2,37 +2,22 @@
 @{
     ViewData["Title"] = "Statistikk";
 }
-<div>
-  <form class="searchbar-2" asp-controller="Home" asp-action= "StatistikkRes" method="post" style="margin-left: 70px">
-    <input type="text" name="OrderId" placeholder="Søk på nytt ordrenr"required/><br/>
-    <button type="submit"><img src="../wwwroot/images/search.png"> </button>
-  </form>
-  <br/>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-<body>
-
-<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
-
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js" integrity="sha512-FJ2OYvUIXUqCcPf1stu+oTBlhn54W0UisZB/TNrZaVMHHhYvLBV9jMbvJYtvDe5x/WVaoXZ6KB+Uqe5hT2vlyA==" crossorigin="anonymous"></script>
 <script>
 //Funksjon som konverterer en TimeStamp-string til en string med sekunder
 function convertDurationtoSeconds(duration){
     const [hours, minutes, seconds] = duration.split(':');
     return Number(hours) * 60 * 60 + Number(minutes) * 60 + Number(seconds);
 }
-</script>
 
-<script>
-
-// lager JavaScript variabler på de ulike modell-variablene
+// lager JavaScript variabler på de ulike model-variablene
 var jsDrilling = '@Model.ProductionEventList.TotalDrillingQue';
 var jsFitting1 = '@Model.ProductionEventList.TotalFitting1Que';
 var jsFitting2 = '@Model.ProductionEventList.TotalFitting2Que';
 var jsAssembly = '@Model.ProductionEventList.TotalAssemblyQue';
 var jsTotalQueTime = '@Model.ProductionEventList.TotalOrderQue';
 
-//Setter variabler som mates inn i konverterings funksjonen.
-//Outputen av funksjonen blir satt til outDrilling, OutFitting osv. 
 const inDrilling = jsDrilling;
 const outDrilling = convertDurationtoSeconds(inDrilling);
 const inFitting1 = jsFitting1;
@@ -41,33 +26,96 @@ const inFitting2 = jsFitting2;
 const outFitting2 = convertDurationtoSeconds(inFitting2);
 const inAssembly = jsAssembly;
 const outAssembly = convertDurationtoSeconds(inAssembly);
-
-var xValues = ["Drilling (sekunder)", "Fitting1 (sekunder)", "Fitting2 (sekunder)", "Assembly (sekunder)", "Total dødtid på ordren er: " + jsTotalQueTime]
-var yValues = [outDrilling, outFitting1, outFitting2, outAssembly, 0];
-var barColors = [
-  "#b91d47",
-  "#00aba9",
-  "#2b5797",
-  "#e8c3b9",
-  "#1e7145"
-];
-
-new Chart("myChart", {
-  type: "pie",
-  data: {
-    labels: xValues,
-    datasets: [{
-      backgroundColor: barColors,
-      data: yValues
-    }]
-  },
-  options: {
-    title: {
-      display: true,
-      text: "Køtid på ordrenummer: @Model.ProductionEventList.OrderId"
-    }
-  }
-});
 </script>
 
+
+ <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Maskin', 'Køtid'],
+          ['Borring',     outDrilling],
+          ['Evert 1',      outFitting1],
+          ['Evert 2',  outFitting2],
+          ['Pressa TV', outAssembly]
+        ]);
+
+        var options = {
+          title: 'Antall % køtid ved de ulike maskinene. (Tall er regnet i sekunder)'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart2);
+
+      function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+          ['Maskiner', 'Syklusstid (sekunder)', 'Køtid (sekunder)'],
+          ['Borring', 100, outDrilling],
+          ['Evert 1', 200, outFitting1],
+          ['Evert 2', 500, outFitting2],
+          ['Pressa', 600, outAssembly]
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Andel køtid mot syklusstid i maskiner',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart3);
+
+      function drawChart3() {
+        var data = google.visualization.arrayToDataTable([
+          ['Maskiner', 'Syklustid', 'Køtid/Dødtid'],
+          ['Borring',  1000,      outDrilling],
+          ['Evert 1',  1170,      outFitting1],
+          ['Evert 2',  660,       outFitting2],
+          ['Pressa',  1030,       outAssembly]
+        ]);
+
+        var options = {
+          title: 'Sammenhengen mellom syklustid og dødtid',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+</head>
+<body>
+<div>
+  <form class="searchbar-2" asp-controller="Home" asp-action= "StatistikkRes" method="post" style="margin-left: 70px">
+    <input type="text" name="OrderId" placeholder="Søk på nytt ordrenr"required/><br/>
+    <button type="submit"><img src="../wwwroot/images/search.png"> </button>
+  </form>
+  <br/>
+</div>
+<div id="piechart" class="chart" style="width: 600px; height: 600px;"></div>
+<div id="columnchart_material" class="chart" style="width: 800px; height: 500px;"></div>
+<div id="curve_chart" class ="chart" style="width: 900px; height: 500px"></div>
 </body>
+
