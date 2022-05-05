@@ -97,23 +97,4 @@ public class DataProcessService
         }
         return opAndCykList;
     }
-
-    public bool checkForOperation(string input)
-    {
-        if(input.Contains("Operation"))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    public int calculateQueTime(TimeSpan skap1Started, TimeSpan skap2Started)
-    {
-        TimeSpan que = skap2Started - skap1Started;
-        int secondsOfQue = que.Seconds;
-        return secondsOfQue;
-    }
 }

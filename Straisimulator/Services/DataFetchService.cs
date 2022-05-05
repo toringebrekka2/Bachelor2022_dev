@@ -168,31 +168,6 @@ public class DataFetchService : IDataFetchService
                     productionEventList.AssemblyEvents.Add(ev);
                 }
             }
-            /*
-            for (int i = 0; i <= productionEventList.ProductionEvents.Count; i++)
-            {
-                if (productionEventList.ProductionEvents[i].ProductionType == 0 ||
-                    productionEventList.ProductionEvents[i].ProductionType == 110)
-                {
-                    productionEventList.OtherOrUndefinedEvents.Add(productionEventList.ProductionEvents[i]);
-                } 
-                else if (productionEventList.ProductionEvents[i].ProductionType == 320)
-                {
-                    productionEventList.DrillingEvents.Add(productionEventList.ProductionEvents[i]);
-                }
-                else if (productionEventList.ProductionEvents[i].ProductionType == 330)
-                {
-                    productionEventList.Fitting1Events.Add(productionEventList.ProductionEvents[i]);
-                }
-                else if (productionEventList.ProductionEvents[i].ProductionType == 350)
-                {
-                    productionEventList.Fitting2Events.Add(productionEventList.ProductionEvents[i]);
-                }
-                else if (productionEventList.ProductionEvents[i].ProductionType == 360)
-                {
-                    productionEventList.AssemblyEvents.Add(productionEventList.ProductionEvents[i]);
-                }
-            }*/
         }
 
         //legger en verdi i productionEventList.TotalOrderQue (samlet kø for hele ordren):
@@ -251,6 +226,61 @@ public class DataFetchService : IDataFetchService
             }
         }
 
+        //legger en verdi i TotalXCykelTime og TotalOrderCykelTime
+        if (productionEventList.ProductionEvents.Count != 0)
+        {
+            TimeSpan ts1 = new TimeSpan();
+            TimeSpan ts2 = new TimeSpan();
+            TimeSpan ts3 = new TimeSpan();
+            TimeSpan ts4 = new TimeSpan();
+            
+            foreach (Event ev in productionEventList.DrillingEvents)
+            {
+                if (ev.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    ts1 = ts1.Add(ev.OpAndCykAsTimeSpan[1]);
+                }
+
+                productionEventList.TotalDrillingCykelTime = ts1;
+            }
+            
+            foreach (Event ev in productionEventList.Fitting1Events)
+            {
+                if (ev.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    ts2 = ts2.Add(ev.OpAndCykAsTimeSpan[1]);
+                }
+
+                productionEventList.TotalFitting1CykelTime = ts2;
+            }
+            
+            foreach (Event ev in productionEventList.Fitting2Events)
+            {
+                if (ev.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    ts3 = ts3.Add(ev.OpAndCykAsTimeSpan[1]);
+                }
+
+                productionEventList.TotalFitting2CykelTime = ts3;
+            }
+            
+            foreach (Event ev in productionEventList.AssemblyEvents)
+            {
+                if (ev.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    ts4 = ts4.Add(ev.OpAndCykAsTimeSpan[1]);
+                }
+
+                productionEventList.TotalAssemblyCykelTime = ts4;
+            }
+            
+            TimeSpan temp = new TimeSpan();
+            temp = temp.Add(productionEventList.TotalDrillingCykelTime);
+            temp = temp.Add(productionEventList.TotalFitting1CykelTime);
+            temp = temp.Add(productionEventList.TotalFitting2CykelTime);
+            temp = temp.Add(productionEventList.TotalAssemblyCykelTime);
+            productionEventList.TotalOrderCykelTime = temp;
+        }
         return productionEventList;
     }
 }
