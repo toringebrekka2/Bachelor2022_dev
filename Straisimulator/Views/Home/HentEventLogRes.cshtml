@@ -55,27 +55,27 @@
     </thead>
     <tr>
         <td>Brema</td>
-        <td>...</td>
+        <td>@Model.ProductionEventList.TotalDrillingCykelTime</td>
         <td>@Model.ProductionEventList.TotalDrillingQue</td>
     </tr>
     <tr>
         <td>Evert 1</td>
-        <td>...</td>
+        <td>@Model.ProductionEventList.TotalFitting1CykelTime</td>
         <td>@Model.ProductionEventList.TotalFitting1Que</td>
     </tr>
     <tr>
         <td>Evert 2</td>
-        <td>...</td>
+        <td>@Model.ProductionEventList.TotalFitting2CykelTime</td>
         <td>@Model.ProductionEventList.TotalFitting2Que</td>
     </tr>
     <tr>
         <td>Pressa</td>
-        <td>...</td>
+        <td>@Model.ProductionEventList.TotalAssemblyCykelTime</td>
         <td>@Model.ProductionEventList.TotalAssemblyQue</td>
     </tr>
     <tr>
-        <td><strong>Total dødtid:</strong></td>
-        <td></td>
+        <td><strong>Total:</strong></td>
+        <td><strong>@Model.ProductionEventList.TotalOrderCykelTime</strong></td>
         <td><strong>@Model.ProductionEventList.TotalOrderQue</strong></td>
     </tr>
 </table>
