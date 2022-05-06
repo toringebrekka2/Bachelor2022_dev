@@ -40,12 +40,9 @@
         <input type="text" name="OrderId" placeholder="Søk på nytt ordrenr"required/><br/>
         <button type="submit"><img src="../wwwroot/images/search.png"> </button>
     </form>
-        
-
-    <button type="button" class="excel" onclick="fnExcelReport('dataTable1', 'data')">Last ned som Excel fil</button>
 </div>
-
-<table class="content-table-sum" id="table-hide">
+<button type="button" class="excel" onclick="fnExcelReport('dataTable', 'data')">Last ned som Excel fil</button>
+<table class="content-table-sum" id="dataTable">
     <thead>
     <tr>
         <th>Maskin</th>
@@ -82,7 +79,8 @@
 <br/>
 <h4 id="table-h4">Brema</h4>
 <h5 id="table-h5">Dødtid: @Model.ProductionEventList.TotalDrillingQue</h5>
-<table class="content-table" id="dataTable2">
+<button type="button" class="excel" onclick="fnExcelReport('dataTable1', 'data')">Last ned som Excel fil</button>
+<table class="content-table" id="dataTable1">
     <thead>
     <tr>
         <th>Event ID</th>
@@ -122,7 +120,8 @@
 <br/>
 <h4 id="table-h4">Evert 1</h4>
 <h5 id="table-h5">Dødtid: @Model.ProductionEventList.TotalFitting1Que</h5>
-<table class="content-table" id="dataTable3">
+<button type="button" class="excel" onclick="fnExcelReport('dataTable2', 'data')">Last ned som Excel fil</button>
+<table class="content-table" id="dataTable2">
     <thead>
     <tr>
         <th>Event ID</th>
@@ -162,7 +161,8 @@
 <br/>
 <h4 id="table-h4">Evert 2</h4>
 <h5 id="table-h5">Dødtid: @Model.ProductionEventList.TotalFitting2Que</h5>
-<table class="content-table" id="dataTable4">
+<button type="button" class="excel" onclick="fnExcelReport('dataTable3', 'data')">Last ned som Excel fil</button>
+<table class="content-table" id="dataTable3">
     <thead>
     <tr>
         <th>Event ID</th>
@@ -202,7 +202,8 @@
 <br/>
 <h4 id="table-h4">Pressa</h4>
 <h5 id="table-h5">Dødtid: @Model.ProductionEventList.TotalAssemblyQue</h5>
-<table class="content-table" id="dataTable5">
+<button type="button" class="excel" onclick="fnExcelReport('dataTable4', 'data')">Last ned som Excel fil</button>
+<table class="content-table" id="dataTable4">
     <thead>
     <tr>
         <th>Event ID</th>
@@ -242,7 +243,8 @@
 <br/>
 <h4 id="table-h4">Other/undefined</h4>
 <h5 id="table-h5">Dødtid: no data</h5>
-<table class="content-table" id="dataTable6">
+<button type="button" class="excel" onclick="fnExcelReport('dataTable5', 'data')">Last ned som Excel fil</button>
+<table class="content-table" id="dataTable5">
     <thead>
     <tr>
         <th>Event ID</th>
