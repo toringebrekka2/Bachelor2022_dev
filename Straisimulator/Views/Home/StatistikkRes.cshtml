@@ -18,6 +18,11 @@ var jsFitting2 = '@Model.ProductionEventList.TotalFitting2Que';
 var jsAssembly = '@Model.ProductionEventList.TotalAssemblyQue';
 var jsTotalQueTime = '@Model.ProductionEventList.TotalOrderQue';
 
+var jsDrillingCyk = '@Model.ProductionEventList.TotalDrillingCykelTime';
+var jsFitting1Cyk = '@Model.ProductionEventList.TotalFitting1CykelTime';
+var jsFitting2Cyk = '@Model.ProductionEventList.TotalFitting2CykelTime';
+var jsAssemblyCyk = '@Model.ProductionEventList.TotalAssemblyCykelTime';
+
 const inDrilling = jsDrilling;
 const outDrilling = convertDurationtoSeconds(inDrilling);
 const inFitting1 = jsFitting1;
@@ -26,6 +31,15 @@ const inFitting2 = jsFitting2;
 const outFitting2 = convertDurationtoSeconds(inFitting2);
 const inAssembly = jsAssembly;
 const outAssembly = convertDurationtoSeconds(inAssembly);
+
+const inDrillingCyk = jsDrillingCyk;
+const outDrillingCyk = convertDurationtoSeconds(inDrillingCyk);
+const inFitting1Cyk = jsFitting1Cyk;
+const outFitting1Cyk = convertDurationtoSeconds(inFitting1Cyk);
+const inFitting2Cyk = jsFitting2Cyk;
+const outFitting2Cyk = convertDurationtoSeconds(inFitting2Cyk);
+const inAssemblyCyk = jsAssemblyCyk;
+const outAssemblyCyk = convertDurationtoSeconds(inAssemblyCyk);
 </script>
 
 
@@ -38,19 +52,20 @@ const outAssembly = convertDurationtoSeconds(inAssembly);
 
         var data = google.visualization.arrayToDataTable([
           ['Maskin', 'Køtid'],
-          ['Borring',     outDrilling],
-          ['Evert 1',      outFitting1],
-          ['Evert 2',  outFitting2],
-          ['Pressa TV', outAssembly]
+          ['Borring (sekunder)',     outDrilling],
+          ['Evert 1 (sekunder)',      outFitting1],
+          ['Evert 2 (sekunder)',  outFitting2],
+          ['Pressa (sekunder)', outAssembly]
         ]);
 
-        var options = {
-          title: 'Antall % køtid ved de ulike maskinene. (Tall er regnet i sekunder)'
+        var options = { 
+         colors: ['#ffd166', '#89c2d9', '#2a6f97', '#013a63']
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
+       
       }
     </script>
 
@@ -61,17 +76,30 @@ const outAssembly = convertDurationtoSeconds(inAssembly);
       function drawChart2() {
         var data = google.visualization.arrayToDataTable([
           ['Maskiner', 'Syklusstid (sekunder)', 'Køtid (sekunder)'],
-          ['Borring', 100, outDrilling],
-          ['Evert 1', 200, outFitting1],
-          ['Evert 2', 500, outFitting2],
-          ['Pressa', 600, outAssembly]
+          ['Borring', outDrillingCyk, outDrilling],
+          ['Evert 1', outFitting1Cyk, outFitting1],
+          ['Evert 2', outFitting2Cyk, outFitting2],
+          ['Pressa', outAssemblyCyk, outAssembly]
         ]);
 
         var options = {
           chart: {
             title: 'Andel køtid mot syklusstid i maskiner',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-          }
+            subtitle: 'Sammenligning av cyktid og køtid/dødtid',
+          },
+          vAxis: {
+                  title: 'Sekunder',
+                  titleTextStyle: {
+                      color: "#000",
+                      fontName: "sans-serif",
+                      fontSize: 11,
+                      bold: false,
+                      italic: false
+                  },
+                 
+                 },
+          
+                
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
@@ -81,41 +109,121 @@ const outAssembly = convertDurationtoSeconds(inAssembly);
     </script>
 
   <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart3);
+      google.charts.load('current', {'packages':['line']});
+            google.charts.setOnLoadCallback(drawChart3);
 
       function drawChart3() {
-        var data = google.visualization.arrayToDataTable([
-          ['Maskiner', 'Syklustid', 'Køtid/Dødtid'],
-          ['Borring',  1000,      outDrilling],
-          ['Evert 1',  1170,      outFitting1],
-          ['Evert 2',  660,       outFitting2],
-          ['Pressa',  1030,       outAssembly]
-        ]);
-
-        var options = {
-          title: 'Sammenhengen mellom syklustid og dødtid',
-          curveType: 'function',
-          legend: { position: 'bottom' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
-
-        chart.draw(data, options);
-      }
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Maskiner');
+            data.addColumn('number', 'Cykeltid (sekunder)');
+            data.addColumn('number', 'Køtid/Dødtid (sekunder)');
+          
+      
+            data.addRows([
+              ["Borring",  outDrillingCyk, outDrilling],
+              ["Evert 1",  outFitting1Cyk, outFitting1],
+              ["Evert 2",  outFitting2Cyk, outFitting2],
+              ["Pressa",   outAssemblyCyk, outAssembly],
+             
+            ]);
+      
+            var options = {
+              chart: {
+                title: 'Sammenhengen mellom Cykeltid og Køtid/Dødtid',
+                subtitle: 'i sekunder',
+              },
+              vAxis: {
+                                title: 'Sekunder',
+                                titleTextStyle: {
+                                    color: "#000",
+                                    fontName: "sans-serif",
+                                    fontSize: 11,
+                                    bold: false,
+                                    italic: false
+                                }
+                                }
+             
+            };
+      
+            var chart = new google.charts.Line(document.getElementById('linechart_material'));
+      
+            chart.draw(data, google.charts.Line.convertOptions(options));
+          }
     </script>
 
 </head>
 <body>
-<div>
-  <form class="searchbar-2" asp-controller="Home" asp-action= "StatistikkRes" method="post" style="margin-left: 70px">
-    <input type="text" name="OrderId" placeholder="Søk på nytt ordrenr"required/><br/>
-    <button type="submit"><img src="../wwwroot/images/search.png"> </button>
-  </form>
-  <br/>
+<h4 style="text-align: center; margin-left: 10px;">Statistikk og diagrammer</h4>
+<div class="head-container2">
+    
+    <div>
+       <h5 id="statistikk-h5">Ordrenummer som vises: @Model.ProductionEventList.OrderId</h5>
+
+        </div>
+        <div class="statistikk-btn">
+             <div class="searchbar3-button">
+                        </div>
+                        <form class="searchbar-3" asp-controller="Home" asp-action="StatistikkRes" method="post" style="margin-left: 70px">
+                            <input type="text" name="OrderId" placeholder="Søk på nytt ordrenr"required/><br/>
+                            <button type="submit"><img src="../wwwroot/images/search.png"> </button>
+                        </form>
+        </div>
+
+</div> 
+<br/>
+
+<div class="chart-box">
+    
+    <div class="oppsummering-container">
+        <table class="content-table-sum2" id="table-hide">
+            <thead>
+            <tr>
+                <th>Maskin</th>
+                <th>Samlet cykeltid</th>
+                <th>Samlet dødtid</th>
+            </tr>
+            </thead>
+            <tr>
+                <td>Brema</td>
+                <td>@Model.ProductionEventList.TotalDrillingCykelTime</td>
+                <td>@Model.ProductionEventList.TotalDrillingQue</td>
+            </tr>
+            <tr>
+                <td>Evert 1</td>
+                <td>@Model.ProductionEventList.TotalFitting1CykelTime</td>
+                <td>@Model.ProductionEventList.TotalFitting1Que</td>
+            </tr>
+            <tr>
+                <td>Evert 2</td>
+                <td>@Model.ProductionEventList.TotalFitting2CykelTime</td>
+                <td>@Model.ProductionEventList.TotalFitting2Que</td>
+            </tr>
+            <tr>
+                <td>Pressa</td>
+                <td>@Model.ProductionEventList.TotalAssemblyCykelTime</td>
+                <td>@Model.ProductionEventList.TotalAssemblyQue</td>
+            </tr>
+            <tr>
+                <td><strong>Total:</strong></td>
+                <td><strong>@Model.ProductionEventList.TotalOrderCykelTime</strong></td>
+                <td><strong>@Model.ProductionEventList.TotalOrderQue</strong></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="chartContainer1" style="display: grid; justify-content: center; align-content: center;">
+        <div id="piechart" class="chart"></div>
+    </div>
+
+
+    <div class="chartContainer2">
+        <div id="columnchart_material" class="chart"></div>
+    </div>
+
+
+    <div class="chartContainer3">
+        <div id="linechart_material" class="chart"></div>
+    </div>
 </div>
-<div id="piechart" class="chart" style="width: 600px; height: 600px;"></div>
-<div id="columnchart_material" class="chart" style="width: 800px; height: 500px;"></div>
-<div id="curve_chart" class ="chart" style="width: 900px; height: 500px"></div>
 </body>
 

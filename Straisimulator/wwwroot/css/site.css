@@ -67,11 +67,11 @@ h4 {
   margin: 15px 0 0 0;
 }
 h5 {
-  font-size: 12px;
+  font-size: 16px;
   color: #444;
   font-weight: bold;
   text-transform: uppercase;
-  padding-left: 15px;
+  padding-left: 20px;
 }
 #table-h5 {
   font-size: 13px;
@@ -247,13 +247,172 @@ header h1 .color {
 
 /* Statistikk */
 
+.searchbar3-button {
+  margin: 25px;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.searchbar-3 {
+  width: 300px;
+  max-width: 300px;
+  background: rgba(255, 255, 255, 0.50);
+  display: flex;
+  align-items: center;
+  border-radius: 60px;
+  padding: 2px 3px;
+  margin-right: 50px;
+  margin-top: 25px;
+  backdrop-filter: blur(4px) saturate(120%);
+  box-shadow: 0 0 20px rgba(0,0,0,0.25);
+}
+.searchbar-3 input {
+  width: 100px;
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 10px 25px 10px 15px;
+  font-size: 14px;
+  color: #444;
+}
+::placeholder {
+  color: #444;
+}
+.searchbar-3 button img{
+  width: 15px;
+}
+.searchbar-3 button{
+  border: 0;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  background: rgba(104, 138, 168, 0.8);
+  cursor: pointer;
+}
+
+#statistikk-h5 {
+  font-size: 14px;
+  text-align: left;
+  margin-left: 70px;
+  margin-top: 50px;
+  margin-bottom: -30px;
+}
 
 /* Chart container */
+.head-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  background: rgba(231, 231, 231, 0.4);
+}
+
+.head-container2 {
+  display: block;
+  align-content: center;
+  background: #fff;
+}
+
+.statistikk-btn {
+  margin-left: 10px;
+  align-content: center;
+  background: #fff;
+  margin-top: 0;
+}
+
+.oppsummering-container {
+  height: 350px;
+  display: grid;
+  width: 700px;
+  margin: 10px auto;
+  padding: 10px;
+  background: #fff;
+  border-radius: 20px;
+  justify-content: center;
+  margin-top: 55px;
+}
+
+.chart-box {
+  margin: 25px;
+  display: grid;
+  height: 100vh;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  background: rgba(231, 231, 231, 0.4);
+}
+
+@media (max-width: 1500px) {
+  .chart-box {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 90%;
+    max-width: 90%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    padding: 12px 15px;
+    overflow-y: auto;
+    overflow-x: auto;
+    display: block;
+  }
+}
 
 .chart {
-  margin: 0 auto;
-  width: 600px;
-  height: 300px;
+  height: 350px;
+  width: 700px;
+  margin: 10px auto;
+  padding: 10px;
+  background: #fff;
+  border-radius: 20px;
+
+}
+
+/* Statistikk oppsummeringstabell */
+
+.content-table-sum2 {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  width: 500px;
+  max-width: 90%;
+  border-radius: 5px 5px 0 0;
+  
+  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  padding: 12px 15px;
+  max-height: 400px;
+}
+.content-table-sum2 thead tr {
+  background-color: #688AA8;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+
+.content-table-sum2 th, .content-table-sum2 tr, .content-table-sum2 td {
+  padding: 12px 15px;
+  text-align: center;
+}
+.content-table-sum2 tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table-sum2 tbody tr {
+  background-color: #ffffff;
+}
+
+.content-table-sum2 tbody tr:nth-of-type(even){
+  background-color: #dde5ef;
+}
+
+.content-table-sum2 tbody tr:last-of-type {
+  border-bottom: 2px solid#688AA8;
+}
+
+.content-table-sum2 tbody tr.active {
+  font-weight: bold;
+  color: #688AA8;
 }
 
 /* HentEventLog */
@@ -307,6 +466,8 @@ header h1 .color {
   background: rgba(104, 138, 168, 0.8);
   cursor: pointer;
 }
+
+
 
 /* EventloggError */
 
