@@ -1,11 +1,11 @@
 @model Straisimulator.ViewModels.HentEventLogResViewModel
 @{
-    ViewData["Title"] = "Hent kø-tid";
+    ViewData["Title"] = "Hent kø-tid i ordre";
 }
 
 <!--- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> --->
 
-<script src="~/js/FileSaver.js"></script>
+<script src="~/js/FileSaver.js" xmlns="http://www.w3.org/1999/html"></script>
 <script>
     function fnExcelReport(id, name) {
         var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
@@ -37,12 +37,12 @@
     
 <div class="flex">
     <form class="searchbar-2" asp-controller="Home" asp-action="HentEventLogRes" method="post">
-        <input type="text" name="OrderId" placeholder="Søk på nytt ordrenr"required/><br/>
+        <input type="text" name="OrderId" placeholder="Søk på nytt ordrenr" required/><br/>
         <button type="submit"><img src="../wwwroot/images/search.png"> </button>
     </form>
 </div>
-<button type="button" class="excel" onclick="fnExcelReport('dataTable', 'data')">Last ned som Excel fil</button>
-<table class="content-table-sum" id="dataTable">
+<button type="button" class="excel" onclick="fnExcelReport('sumTable', 'data')">Last ned som Excel fil</button>
+<table class="content-table-sum" id="sumTable">
     <thead>
     <tr>
         <th>Maskin</th>
@@ -71,10 +71,46 @@
         <td>@Model.ProductionEventList.TotalAssemblyQue</td>
     </tr>
     <tr>
-        <td><strong>Total:</strong></td>
+        <td><strong>Total</strong></td>
         <td><strong>@Model.ProductionEventList.TotalOrderCykelTime</strong></td>
         <td><strong>@Model.ProductionEventList.TotalOrderQue</strong></td>
     </tr>
+</table>
+<br/>
+<h4>Samlet tabell for ordren: </h4>
+<button type="button" class="excel" onclick="fnExcelReport('dataTableFull', 'data')">Last ned som Excel fil</button>
+<table class="content-table" id="dataTableFull">
+    <thead>
+    <tr>
+        <th>Production ID (skap)</th>
+        <th>Maskin</th>
+        <th>Operasjonstid</th>
+        <th>Cykeltid</th>
+        <th>Køtid/Dødtid</th>
+        <th>Beskrivelse</th>
+    </tr>
+    </thead>
+    @foreach (Event productionEvent in Model.ProductionEventList.ProductionEvents)
+    {
+        <tr>
+            <td>@productionEvent.ProductionId</td>
+            <td>@productionEvent.Maskin</td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[0]
+                }
+            </td>
+            <td>
+                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    @productionEvent.OpAndCykAsTimeSpan[1]
+                }
+            </td>
+            <td>@productionEvent.Que</td>
+            <td>productionEvent.Production.Comment</td>
+        </tr>
+    }
 </table>
 <br/>
 <h4 id="table-h4">Brema</h4>
@@ -82,16 +118,16 @@
 <button type="button" class="excel" onclick="fnExcelReport('dataTable1', 'data')">Last ned som Excel fil</button>
 <table class="content-table" id="dataTable1">
     <thead>
-    <tr>
-        <th>Event ID</th>
-        <th>Production ID (skap)</th>
-        <th>Hendelsestype</th>
-        <th>Maskin</th>
-        <th>Operasjonstid</th>
-        <th>Cykeltid</th>
-        <th>Køtid/Dødtid</th>
-        <th>Beskrivelse</th>
-    </tr>
+        <tr>
+            <th>Event ID</th>
+            <th>Production ID (skap)</th>
+            <th>Hendelsestype</th>
+            <th>Maskin</th>
+            <th>Operasjonstid</th>
+            <th>Cykeltid</th>
+            <th>Køtid/Dødtid</th>
+            <th>Beskrivelse</th>
+        </tr>
     </thead>
     @foreach (Event productionEvent in Model.ProductionEventList.DrillingEvents)
     {
