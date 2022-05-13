@@ -11,7 +11,7 @@ public class DataProcessService
     }
 
     //denne er kun laget fordi jeg enda ikke har fått til å nå de andre attributtene til ProductionType (Description)
-    public void addMachine(List<Event> events)
+    public void AddMachine(List<Event> events)
     {
         foreach (Event ev in events)
         {
@@ -44,7 +44,7 @@ public class DataProcessService
 
     //RETTET: det som er feil nå: i extrainfo på drilling står det "Tid" og "cykeltid" - cykeltida kommer ut riktig,
     //men Tid er ikke op-tid
-    public List<TimeSpan> getOpAndCykTime(string inputText)
+    public List<TimeSpan> GetOpAndCykTime(string inputText)
     {
         string pattern = @"tid: ((?<operasjonstid>(\d{2}:\d{2})|\d+)s?).+tid: (?<cykeltid>\d{2}:\d{2}|\d+?.?\d+?)s?";
         Regex r = new Regex(pattern, RegexOptions.IgnoreCase);

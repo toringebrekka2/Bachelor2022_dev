@@ -58,6 +58,33 @@ public class HomeController : Controller
             return View(model);
         }
     }
+    
+    public IActionResult HentMedDato()
+    {
+        return View();
+    }
+    
+    public IActionResult HentMedDatoError()
+    {
+        return View();
+    }
+    
+    public IActionResult HentMedDatoRes(string date)
+    {
+        DateTime dt = new DateTime(Int32.Parse(date.Substring(0, 4)), Int32.Parse(date.Substring(5, 2)), Int32.Parse(date.Substring(8, 2)));
+        ProductionEventList productionEvents = _dataFetchService.FetchEventsWithDate(dt);
+        if (productionEvents.ProductionEvents.Count == 0)
+        {
+            return View("HentMedDatoError");
+        }
+        else
+        {
+            HentEventLogResViewModel model = new HentEventLogResViewModel();
+            model.ProductionEventList = productionEvents;
+            model.ProductionEventList.Date = dt.Date;
+            return View(model);
+        }
+    }
 
     public IActionResult Statistikk()
     {

@@ -1,0 +1,108 @@
+@model Straisimulator.ViewModels.HentEventLogResViewModel
+@{
+    ViewData["Title"] = "Hent kø-tid på dato";
+}
+
+<script src="~/js/FileSaver.js" xmlns="http://www.w3.org/1999/html"></script>
+<script>
+    function fnExcelReport(id, name) {
+        var tab_text = '<html xmlns: x="urn:schemas-microsoft-com:office:excel">';
+        tab_text = tab_text + '<head><xml><x: ExcelWorkbook><x: ExcelWorksheets><x: ExcelWorksheet>';
+        tab_text = tab_text + '<x: Name>Test Sheet</x: Name>';
+        tab_text = tab_text + '<x: WorksheetOptions><x: Panes></x: Panes></x: WorksheetOptions ></x: ExcelWorksheet > ';
+        tab_text = tab_text + '</x:ExcelWorksheets></x:ExcelWorkbook></xml></head><body>';
+        tab_text = tab_text + "<table border='1px' style='color:black'>";
+
+
+        var exportTable = $('#' + id).clone();
+        exportTable.find('th').last().remove();
+        exportTable.find('input').each(function (index, elem) { $(elem).remove(); });
+        exportTable.find('a').each(function (index, elem) { $(elem).remove(); });
+
+        tab_text = tab_text + exportTable.html();
+        tab_text = tab_text + '</table></body></html>';
+        var fileName = "Køtid_i_ordre" + '.xls';
+
+        //Save the file
+        var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
+        window.saveAs(blob, fileName);
+    }
+</script>
+
+<div class="container-eventlogRes">
+    <h4>Køtid på dato: @Model.ProductionEventList.Date</h4>
+    
+    <div class="flex">
+        <form class="searchbar-2" asp-controller="Home" asp-action="HentMedDatoRes" method="post">
+            <input type="date" name="Date" placeholder="Søk på ny dato"required/><br/>
+            <button type="submit"><img src="../wwwroot/images/search.png"> </button>
+        </form>
+    </div>
+    <button type="button" class="excel" onclick="fnExcelReport('sumDayTable', 'data')">Last ned som Excel fil</button>
+    <table class="content-table-sum" id="sumDayTable">
+        <thead>
+        <tr>
+            <th>Maskin</th>
+            <th>Samlet dødtid</th>
+        </tr>
+        </thead>
+        <tr>
+            <th>Brema</th>
+            <th>@Model.ProductionEventList.TotalDrillingQue</th>
+        </tr>
+        <tr>
+            <th>Evert 1</th>
+            <th>@Model.ProductionEventList.TotalFitting1Que</th>
+        </tr>
+        <tr>
+            <th>Evert 2</th>
+            <th>@Model.ProductionEventList.TotalFitting2Que</th>
+        </tr>
+        <tr>
+            <th>Pressa</th>
+            <th>@Model.ProductionEventList.TotalAssemblyQue</th>
+        </tr>
+        <tr>
+            <th><strong>Total</strong></th>
+            <th>@Model.ProductionEventList.TotalDayQue</th>
+        </tr>
+    </table>
+    <br/>
+    <h4>Samlet tabell for dagen: </h4>
+    <button type="button" class="excel" onclick="fnExcelReport('dataTableFullDay', 'data')">Last ned som Excel fil</button>
+    <table class="content-table" id="dataTableFullDay">
+        <thead>
+            <tr>
+                <th>Production ID (skap)</th>
+                <th>Dato</th>
+                <th>Maskin</th>
+                <th>Operasjonstid</th>
+                <th>Cykeltid</th>
+                <th>Køtid/Dødtid</th>
+                <th>Beskrivelse</th>
+            </tr>
+        </thead>
+        @foreach (Event productionEvent in Model.ProductionEventList.ProductionEvents)
+        {
+            <tr>
+                <td>@productionEvent.ProductionId</td>
+                <td>@productionEvent.TimeStamp.Date</td>
+                <td>@productionEvent.Maskin</td>
+                <td>
+                    @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                    {
+                        @productionEvent.OpAndCykAsTimeSpan[0]
+                    }
+                </td>
+                <td>
+                    @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
+                    {
+                        @productionEvent.OpAndCykAsTimeSpan[1]
+                    }
+                </td>
+                <td>@productionEvent.Que</td>
+                <td>productionEvent.ProductionId.Comment</td>
+            </tr>
+        }
+    </table>
+</div>
