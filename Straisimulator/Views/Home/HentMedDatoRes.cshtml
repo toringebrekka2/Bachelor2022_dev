@@ -21,7 +21,7 @@
 
         tab_text = tab_text + exportTable.html();
         tab_text = tab_text + '</table></body></html>';
-        var fileName = "Køtid_i_ordre" + '.xls';
+        var fileName = "Køtid_på_dato" + '.xls';
 
         //Save the file
         var blob = new Blob([tab_text], { type: "application/vnd.ms-excel;charset=utf-8" })
@@ -74,7 +74,7 @@
         <thead>
             <tr>
                 <th>Production ID (skap)</th>
-                <th>Dato</th>
+                <th>Dato/tid</th>
                 <th>Maskin</th>
                 <th>Operasjonstid</th>
                 <th>Cykeltid</th>
@@ -86,7 +86,7 @@
         {
             <tr>
                 <td>@productionEvent.ProductionId</td>
-                <td>@productionEvent.TimeStamp.Date</td>
+                <td>@productionEvent.TimeStamp</td>
                 <td>@productionEvent.Maskin</td>
                 <td>
                     @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
