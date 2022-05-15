@@ -64,7 +64,7 @@ public class DataFetchService : IDataFetchService
         return productionDay;
     }
 
-    //SO2209158
+    
     public ProductionEventList FetchProductionEvents(string orderId)
     {
         //henter en join mellom ProductionEventLog, ProductionEventType og Production der Production har samme OrderNumber som "orderId"
