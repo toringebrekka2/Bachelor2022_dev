@@ -71,7 +71,7 @@ public class DataFetchService : IDataFetchService
         var productionEvents = ApplicationDbContext.ProductionEventLog
             .Include(p => p.ProductionTypes)
             .Include(p => p.Production)
-            .Where(p => p.Production.OrderNumber == orderId)
+            .Where(p => p.Production.OrderNumber == orderId && p.EventType == 60)
             .OrderBy(p => p.ProductionId);
 
         List<Event> prodEvents = productionEvents.Select(p => new Event
