@@ -277,46 +277,46 @@
     }
 </table>
 <br/>
-<h4 id="table-h4">Other/undefined</h4>
-<h5 id="table-h5">Dødtid: no data</h5>
-<button type="button" class="excel" onclick="fnExcelReport('dataTable5', 'data')">Last ned som Excel fil</button>
-<table class="content-table" id="dataTable5">
-    <thead>
-    <tr>
-        <th>Event ID</th>
-        <th>Production ID (skap)</th>
-        <th>Hendelsestype</th>
-        <th>Maskin</th>
-        <th>Operasjonstid</th>
-        <th>Cykeltid</th>
-        <th>Køtid/Dødtid</th>
-        <th>Beskrivelse</th>
-    </tr>
-    </thead>
-    @foreach (Event productionEvent in Model.ProductionEventList.OtherOrUndefinedEvents)
-    {
-        <tr>
-            <td>@productionEvent.Id</td>
-            <td>@productionEvent.ProductionId</td>
-            <td>@productionEvent.EventType</td>
-            <td>@productionEvent.Maskin</td>
-            <td>
-                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
-                {
-                    @productionEvent.OpAndCykAsTimeSpan[0]
-                }
-            </td>
-            <td>
-                @if (productionEvent.OpAndCykAsTimeSpan.Count != 0)
-                {
-                    @productionEvent.OpAndCykAsTimeSpan[1]
-                }
-            </td>
-            <td>@productionEvent.Que</td>
-            <td>production comment</td>
-        </tr>
-    }
-</table>
+@* <h4 id="table-h4">Other/undefined</h4> *@
+@* <h5 id="table-h5">Dødtid: no data</h5> *@
+@* <button type="button" class="excel" onclick="fnExcelReport('dataTable5', 'data')">Last ned som Excel fil</button> *@
+@* <table class="content-table" id="dataTable5"> *@
+@*     <thead> *@
+@*     <tr> *@
+@*         <th>Event ID</th> *@
+@*         <th>Production ID (skap)</th> *@
+@*         <th>Hendelsestype</th> *@
+@*         <th>Maskin</th> *@
+@*         <th>Operasjonstid</th> *@
+@*         <th>Cykeltid</th> *@
+@*         <th>Køtid/Dødtid</th> *@
+@*         <th>Beskrivelse</th> *@
+@*     </tr> *@
+@*     </thead> *@
+@*     @foreach (Event productionEvent in Model.ProductionEventList.OtherOrUndefinedEvents) *@
+@*     { *@
+@*         <tr> *@
+@*             <td>@productionEvent.Id</td> *@
+@*             <td>@productionEvent.ProductionId</td> *@
+@*             <td>@productionEvent.EventType</td> *@
+@*             <td>@productionEvent.Maskin</td> *@
+@*             <td> *@
+@*                 @if (productionEvent.OpAndCykAsTimeSpan.Count != 0) *@
+@*                 { *@
+@*                     @productionEvent.OpAndCykAsTimeSpan[0] *@
+@*                 } *@
+@*             </td> *@
+@*             <td> *@
+@*                 @if (productionEvent.OpAndCykAsTimeSpan.Count != 0) *@
+@*                 { *@
+@*                     @productionEvent.OpAndCykAsTimeSpan[1] *@
+@*                 } *@
+@*             </td> *@
+@*             <td>@productionEvent.Que</td> *@
+@*             <td>production comment</td> *@
+@*         </tr> *@
+@*     } *@
+@* </table> *@
 </div>
 
 <script>

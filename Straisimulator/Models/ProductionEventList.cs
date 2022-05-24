@@ -31,6 +31,6 @@ public class ProductionEventList
         Fitting1Events = new List<Event>();
         Fitting2Events = new List<Event>();
         AssemblyEvents = new List<Event>();
-        OtherOrUndefinedEvents = new List<Event>();
+       // OtherOrUndefinedEvents = new List<Event>();
     }
 }
