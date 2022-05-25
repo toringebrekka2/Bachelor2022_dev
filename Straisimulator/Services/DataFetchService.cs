@@ -366,11 +366,11 @@ public class DataFetchService : IDataFetchService
         {
             foreach (Event ev in productionEventList.ProductionEvents)
             {
-                if (ev.ProductionType == 0 || ev.ProductionType == 110)
-                {
-                    productionEventList.OtherOrUndefinedEvents.Add(ev);
-                } 
-                else if (ev.ProductionType == 320)
+                // if (ev.ProductionType == 0 || ev.ProductionType == 110)
+                // {
+                //     productionEventList.OtherOrUndefinedEvents.Add(ev);
+                // } 
+                if (ev.ProductionType == 320)
                 {
                     productionEventList.DrillingEvents.Add(ev);
                 }
