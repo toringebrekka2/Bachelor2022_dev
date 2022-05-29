@@ -185,9 +185,20 @@ public class DataProcessService
         }
     }
 
-    public void AddTotalQueOnX(ProductionEventList productionEventList, List<Event> events)
+    public TimeSpan GetTotalQueOnX(List<Event> events)
     {
-        
+        TimeSpan totalQue = new TimeSpan();
+        if (events.Count != 0)
+        {
+            totalQue = events[0].Que;
+            for (int i = 1; i < events.Count; i++)
+            {
+                TimeSpan ts = new TimeSpan();
+                ts = totalQue.Add(events[i].Que);
+                totalQue = ts;
+            }
+        }
+        return totalQue;
     }
 
     public void AddTotalCykelTime(ProductionEventList productionEventList)
