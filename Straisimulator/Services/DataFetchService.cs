@@ -82,7 +82,7 @@ public class DataFetchService : IDataFetchService
             .Include(p => p.ProductionTypes)
             .Include(p => p.Production)
             .Where(p => p.TimeStamp.Date == date.Date && p.ProductionId != null)
-            .OrderBy(p => p.ProductionId).ToList();
+            .OrderBy(p => p.TimeStamp).ToList();
 
         List<Event> prodEvents = productionEvents.Select(p => new Event
             {
