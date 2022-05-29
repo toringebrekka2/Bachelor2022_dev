@@ -10,7 +10,36 @@ public class DataProcessService
         
     }
 
-    //denne er kun laget fordi jeg enda ikke har fått til å nå de andre attributtene til ProductionType (Description)
+    public void RemoveEmptyExtraInfo(List<Event> prodEvents)
+    {
+        for (int i = 0; i < prodEvents.Count; i++)
+        {
+            if (prodEvents[i].ExtraInfo == String.Empty)
+            {
+                prodEvents.RemoveAt(i);
+            }
+        }
+    }
+
+    public void AddOpAndCykAsTimeSpan(List<Event> prodEvents)
+    {
+        foreach (Event ev in prodEvents)
+        {
+            List<TimeSpan> list = GetOpAndCykTime(ev.ExtraInfo);
+            
+            //fikser feilen med at borring kun gir cykeltid:
+            if (list.Count != 0)
+            {
+                if (ev.ProductionType == 320)
+                {
+                    list[0] = new TimeSpan(0, 0, 0, 0);
+                }
+            }
+            ev.OpAndCykAsTimeSpan = list;
+        }
+    }
+
+    //denne er kun laget fordi jeg enda ikke har fått til å nå de andre attributtene til ProductionType (Description):
     public void AddMachine(List<Event> events)
     {
         foreach (Event ev in events)
@@ -42,8 +71,8 @@ public class DataProcessService
         }
     }
 
-    //RETTET: det som er feil nå: i extrainfo på drilling står det "Tid" og "cykeltid" - cykeltida kommer ut riktig,
-    //men Tid er ikke op-tid
+    //RETTET det som er feil nå: i extrainfo på drilling står det "Tid" og "cykeltid" - cykeltida kommer ut riktig,
+    //men Tid er ikke op-tid:
     public List<TimeSpan> GetOpAndCykTime(string inputText)
     {
         string pattern = @"tid: ((?<operasjonstid>(\d{2}:\d{2})|\d+)s?).+tid: (?<cykeltid>\d{2}:\d{2}|\d+?.?\d+?)s?";
@@ -96,5 +125,126 @@ public class DataProcessService
             opAndCykList.Add(cykTime);
         }
         return opAndCykList;
+    }
+
+    public void AddQue(List<Event> prodEvents)
+    {
+        foreach (Event e in prodEvents)
+        {
+            if (e.OpAndCykAsTimeSpan.Count != 0)
+            {
+                //hvis op-tid er lik 0, sett kø til 0, istedenfor det samme som cykeltid (cykeltid-0)
+                if (TimeSpan.Compare(e.OpAndCykAsTimeSpan[0], new TimeSpan(0, 0, 0, 0)) == 0)
+                {
+                    e.Que = new TimeSpan(0, 0, 0, 0);
+                }
+                else
+                {
+                    //hvis op-tid er større enn cyk-tid: 0s kø
+                    if (TimeSpan.Compare(e.OpAndCykAsTimeSpan[0], e.OpAndCykAsTimeSpan[1]) == 1)
+                    {
+                        e.Que = new TimeSpan(0,0,0,0);
+                    }
+                    else
+                    {
+                        TimeSpan ts = e.OpAndCykAsTimeSpan[1].Subtract(e.OpAndCykAsTimeSpan[0]);
+                        e.Que = ts;
+                    } 
+                }
+            }
+        }
+    }
+
+    public void DistributeEvents(ProductionEventList productionEventList)
+    {
+        if (productionEventList.ProductionEvents.Count > 0)                                
+        {
+            foreach (Event ev in productionEventList.ProductionEvents)
+            {
+                if (ev.ProductionType == 0 || ev.ProductionType == 110)
+                {
+                    productionEventList.OtherOrUndefinedEvents.Add(ev);
+                } 
+                else if (ev.ProductionType == 320)
+                {
+                    productionEventList.DrillingEvents.Add(ev);
+                }
+                else if (ev.ProductionType == 330)
+                {
+                    productionEventList.Fitting1Events.Add(ev);
+                }
+                else if (ev.ProductionType == 350)
+                {
+                    productionEventList.Fitting2Events.Add(ev);
+                }
+                else if (ev.ProductionType == 360)
+                {
+                    productionEventList.AssemblyEvents.Add(ev);
+                }
+            }
+        }
+    }
+
+    public void AddTotalQueOnX(ProductionEventList productionEventList, List<Event> events)
+    {
+        
+    }
+
+    public void AddTotalCykelTime(ProductionEventList productionEventList)
+    {
+        if (productionEventList.ProductionEvents.Count != 0)
+        {
+            TimeSpan ts1 = new TimeSpan();
+            TimeSpan ts2 = new TimeSpan();
+            TimeSpan ts3 = new TimeSpan();
+            TimeSpan ts4 = new TimeSpan();
+            
+            foreach (Event ev in productionEventList.DrillingEvents)
+            {
+                if (ev.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    ts1 = ts1.Add(ev.OpAndCykAsTimeSpan[1]);
+                }
+
+                productionEventList.TotalDrillingCykelTime = ts1;
+            }
+            
+            foreach (Event ev in productionEventList.Fitting1Events)
+            {
+                if (ev.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    ts2 = ts2.Add(ev.OpAndCykAsTimeSpan[1]);
+                }
+
+                productionEventList.TotalFitting1CykelTime = ts2;
+            }
+            
+            foreach (Event ev in productionEventList.Fitting2Events)
+            {
+                if (ev.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    ts3 = ts3.Add(ev.OpAndCykAsTimeSpan[1]);
+                }
+
+                productionEventList.TotalFitting2CykelTime = ts3;
+            }
+            
+            foreach (Event ev in productionEventList.AssemblyEvents)
+            {
+                if (ev.OpAndCykAsTimeSpan.Count != 0)
+                {
+                    ts4 = ts4.Add(ev.OpAndCykAsTimeSpan[1]);
+                }
+
+                productionEventList.TotalAssemblyCykelTime = ts4;
+            }
+            
+            TimeSpan temp = new TimeSpan();
+            temp = temp.Add(productionEventList.TotalDrillingCykelTime);
+            temp = temp.Add(productionEventList.TotalFitting1CykelTime);
+            temp = temp.Add(productionEventList.TotalFitting2CykelTime);
+            temp = temp.Add(productionEventList.TotalAssemblyCykelTime);
+            productionEventList.TotalOrderCykelTime = temp;
+        }
     }
 }
