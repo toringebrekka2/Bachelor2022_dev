@@ -71,7 +71,7 @@ public class DataFetchService : IDataFetchService
         var productionEvents = ApplicationDbContext.ProductionEventLog
             .Include(p => p.ProductionTypes)
             .Include(p => p.Production)
-            .Where(p => p.Production.OrderNumber == orderId)
+            .Where(p => p.Production.OrderNumber == orderId && p.EventType == 60)
             .OrderBy(p => p.ProductionId);
 
         List<Event> prodEvents = productionEvents.Select(p => new Event
@@ -366,11 +366,11 @@ public class DataFetchService : IDataFetchService
         {
             foreach (Event ev in productionEventList.ProductionEvents)
             {
-                if (ev.ProductionType == 0 || ev.ProductionType == 110)
-                {
-                    productionEventList.OtherOrUndefinedEvents.Add(ev);
-                } 
-                else if (ev.ProductionType == 320)
+                // if (ev.ProductionType == 0 || ev.ProductionType == 110)
+                // {
+                //     productionEventList.OtherOrUndefinedEvents.Add(ev);
+                // } 
+                if (ev.ProductionType == 320)
                 {
                     productionEventList.DrillingEvents.Add(ev);
                 }
