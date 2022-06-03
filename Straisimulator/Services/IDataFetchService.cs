@@ -7,4 +7,5 @@ public interface IDataFetchService
 {
     ProductionDay FetchProductionDay(DateTime prodDate);
     ProductionEventList FetchProductionEvents(String orderId);
+    ProductionEventList FetchEventsWithDate(DateTime date);
 }

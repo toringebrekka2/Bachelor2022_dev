@@ -1,9 +1,8 @@
-﻿using Straisimulator.Models;
+using Straisimulator.Models;
 
 namespace Straisimulator.ViewModels;
 
-public class ResultaterViewModel
+public class HentMedDatoResViewModel
 {
     public ProductionEventList ProductionEventList { get; set; }
-
 }

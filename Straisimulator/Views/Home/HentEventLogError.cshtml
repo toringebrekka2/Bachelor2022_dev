@@ -7,10 +7,11 @@
 
 
 <div class="container-eventlog">
-    <h4>Kø-tid i en ordre</h4>
     <form class="searchbar" asp-controller="Home" asp-action="HentEventLogRes" method="post">
-        <input type="text" name="orderId" placeholder="Legg inn ordrenummer" required/><br/>
+        <input type="text" name="orderId" placeholder="Legg inn ordrenummer"required/><br/>
         <button type="submit"><img src="../wwwroot/images/search.png"> </button>
     </form>
+    <div class="container-error">
+        <p>Fant ingen data på dette ordrenummeret... Prøv igjen!</p>
+    </div>
 </div>
-

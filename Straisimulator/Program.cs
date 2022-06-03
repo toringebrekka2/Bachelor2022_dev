@@ -1,6 +1,6 @@
 using System.Collections;using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Straisimulator.AppTools;
+using Microsoft.Extensions.FileProviders;
 using Straisimulator.Data;
 using Straisimulator.Services;
 using Straisimulator.ViewModels;
@@ -22,18 +22,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 
-/* ---- App specific ---- */
-
-
-
-
-
-
-
-
-/* ---------------------- */
-
 var app = builder.Build();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot/images")),
+    RequestPath = "/wwwroot/images"
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

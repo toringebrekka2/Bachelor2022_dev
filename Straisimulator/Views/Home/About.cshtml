@@ -1,0 +1,38 @@
+@model Straisimulator.ViewModels.ResultViewModel
+@using Straisimulator.ViewModels
+@{
+    ViewData["Title"] = "About";
+}
+
+<div id="primary-content">
+    <div class="wrapper">
+        <article>
+            <h4>Om applikasjonen.</h4>
+            <p>Denne applikasjonen har som formål å kunne simulere, vise historiske data og beregne en ordres køtid.
+                            Utviklingen har skjedd i forbindelse med Bacheloroppgave i IT og informasjonssystemer 2022 og er utviklet
+                            av tre studenter ved Universitetet i Agder. 
+                            </p>
+            <a href="#"><img src="../wwwroot/images/stra_produksjon.png" alt="video placeholder" height="280px"/></a>
+        </article>
+    </div>
+</div>
+
+<div id="secondary-content">
+    <div class="wrapper">
+        <div class="overlay">
+                <h5>Hva gjør applikasjonen?</h5>
+            <p><small>Hovedfunksjonen til applikasjonen er å gi køtid på ulike skap i en ordre. 
+                Denne køtiden skal vises per maskin på produksjonslinjen og gi en indikasjon på 
+                hvilke skap som bruker lang tid, og hvilke skap som bruker kort tid. 
+                I tillegg til dette skal det på sikt bli mulighet til å simulere en ordre før den
+                går gjennom produksjonen. Dette skal gi mulighet til å sortere skapene på den måten
+                som vil gi kortest mulig køtid.</small></p>
+           <br/>
+        </div>
+        <div class="overlay">
+            <h5>Om utviklerene.</h5>
+            <p><small>Utviklerene av applikasjonen er tre studenter ved Universitetet i Agder.</small></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

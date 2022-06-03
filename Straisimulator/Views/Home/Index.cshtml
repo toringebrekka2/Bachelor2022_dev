@@ -3,16 +3,27 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <form asp-controller="Home" asp-action="Result" method="post">
-        <label>Enter production day:</label><br/>
-        <label>YYYY</label>
-        <input type="number" name="ProdDay1" value="Year" required/><br/>
-        <label>MM</label>
-        <input type="number" name="ProdDay2" value="Month" required/><br/>
-        <label>DD</label>
-        <input type="number" name="ProdDay3" value="Day" required/><br/>
-        <input type="submit" value="Fetch"/>
-    </form>
+<div id="hero-image">
+  <div class="Wrapper-1">
+    <h2>Hva gjør applikasjonen?</h2>
+    <a asp-area="" asp-controller="Home" asp-action="About" class="button-1">Les mer her!</a>
+  </div>
+</div>
+
+<div id="features">
+  <div class="Wrapper">
+    <ul>
+      <div class="container-2">
+        <a asp-area="" asp-controller="Home" asp-action="Simulator" id="animated-word">Simulering</a>
+      </div>
+      <div class="container-2">
+        <a asp-area="" asp-controller="Home" asp-action="Statistikk" id="animated-word">Statistikk</a>
+      </div>
+      <div class="container-2">
+        <a asp-area="" asp-controller="Home" asp-action="HentEventLog" id="animated-word">Hent køtid i ordre</a>
+      </div>
+      <div class="clear"></div>
+    </ul>
+  </div>
+  
 </div>
